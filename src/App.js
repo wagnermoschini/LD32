@@ -14,13 +14,14 @@ var App = function() {
   var scale = 1;
 
   function init() {
+
     document.body.appendChild(renderer.view);
     stage.addChild(container);
 
     container.scale.x = scale;
     container.scale.y = scale;
-    renderer.scaledWidth = renderer.width/scale;
-    renderer.scaledHeight = renderer.height/scale;
+    renderer.scaledWidth = renderer.width/ scale;
+    renderer.scaledHeight = renderer.height/ scale;
 
     setInterval(update, 1000/60);
     update();
@@ -43,7 +44,7 @@ var App = function() {
   }
 
   function update() {
-    if (game) game.update();
+    if(game) game.update();
   }
 
   function render() {

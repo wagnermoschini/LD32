@@ -3,9 +3,10 @@ var Grandma = require('./Grandma');
 
 var Game = function(container) {
   this.view = new PIXI.DisplayObjectContainer();
-  
+
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
   this.alien = PIXI.Sprite.fromFrame('alien.png');
+  this.aliens = []
   this.grandma = new Grandma();
 
   this.view.addChild(this.scenario);
@@ -22,6 +23,8 @@ var Game = function(container) {
 };
 
 Game.prototype.update = function() {
+
+
   this.alien.position.x = Math.sin(this.time*0.05)*30;
   this.alien.position.y = Math.cos(this.time*0.05)*30;
   this.time += 1;
