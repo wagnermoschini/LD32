@@ -1,0 +1,24 @@
+{
+  "name": "elsewhere",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-debug": "browserify src/main.js -o release/main.js -d",
+    "build-release": "browserify src/main.js | uglifyjs -mc > release/main.js",
+    "watch": "watchify src/main.js -o release/main.js -dv",
+    "lint": "jshint src/",
+    "server": "http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pixi.js": "^2.2.9"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "http-server": "^0.8.0",
+    "uglify-js": "^2.4.19",
+    "watchify": "^3.1.0"
+  }
+}
