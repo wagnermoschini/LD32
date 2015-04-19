@@ -5,6 +5,11 @@ var TouchArea = function() {
 
   this.down = false;
   this.up = false;
+  this.pointer = {
+    x: Config.layout.screenSize.w,
+    y: Config.layout.screenSize.h
+  }
+
 
   this.view = new PIXI.DisplayObjectContainer();
   this.view.width = (Config.layout.screenSize.h/Config.layout.scale);
@@ -36,6 +41,14 @@ var TouchArea = function() {
     this.up = true;
   }.bind(this);
 
+  this.view.mousemove = function(event){
+    this.setMousePosition(event.originalEvent.layerX, event.originalEvent.layerY);
+  }.bind(this);
+
+  this.view.touchmove = function(event){
+    this.setMousePosition(event.originalEvent.layerX, event.originalEvent.layerY);
+  }.bind(this);
+
   this.view.touchstart = function(event){
     this.down = true;
     this.up = false;
@@ -51,4 +64,18 @@ var TouchArea = function() {
 TouchArea.prototype.setUp = function(bool){
   this.up = bool;
 }
+
+TouchArea.prototype.setMousePosition = function(x,y){
+  this.pointer.x = x;
+  this.pointer.y = y;
+}
+
+TouchArea.prototype.getSide = function(){
+  if(this.pointer.x < Config.layout.screenSize.w/2){
+    return 'left';
+  } else {
+    return 'right';
+  }
+}
+
 module.exports = TouchArea;

@@ -59,6 +59,8 @@ Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
 
+  this.grandma.update(this.touchArea.getSide());
+
   // this.bar.update();
 
   // if(this.frame % this.summonTime === 0){
@@ -72,13 +74,11 @@ Game.prototype.update = function() {
   // }
 
   if(this.touchArea.down){
-    console.log('charge');
     this.power += this.powerCoef;
     this.bar.update(this.power);
   }
 
   if(this.touchArea.up){
-    console.log('shoot');
     this.power = 0;
     this.bar.update(this.power);
     this.touchArea.setUp(false);
