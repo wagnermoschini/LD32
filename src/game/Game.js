@@ -2,6 +2,7 @@ var PIXI = require('pixi.js');
 var Grandma = require('./Grandma');
 var Alien = require('./Alien');
 var Time = require('./Time');
+var Bar = require('./Bar');
 
 var Game = function(w) {
   this.view = new PIXI.DisplayObjectContainer();
@@ -14,14 +15,17 @@ var Game = function(w) {
   this.aliens = [];
   this.grandma = new Grandma();
   this.time = new Time();
+  this.bar = new Bar();
 
   this.view.addChild(this.scenario);
   this.view.addChild(this.grandma.view);
+  this.view.addChild(this.bar.view);
 
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
-  this.summonTime = 0;
+  this.summonTime = 240;
+  this.frame = 0;
 };
 
 Game.prototype.summonAlien = function(){
@@ -33,9 +37,9 @@ Game.prototype.summonAlien = function(){
 
 Game.prototype.update = function() {
   this.time.update();
-  this.summonTime += this.time.delta;
-  if(this.summonTime > 1){
-  	this.summonTime = 0;
+  this.frame += 1;
+
+  if(this.frame % this.summonTime === 0){
     this.summonAlien();
   }
 
@@ -45,7 +49,6 @@ Game.prototype.update = function() {
     }
   }
 }
-
 
 
 module.exports = Game;
