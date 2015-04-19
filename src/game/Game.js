@@ -56,12 +56,10 @@ Game.prototype.summonAlien = function(){
 }
 
 Game.prototype.shoot = function() {
-  var projectile = new Projectile('donut');
-  projectile.speed = 1;
+  var projectile = new Projectile();
   this.projectiles.push(projectile);
   this.view.addChild(projectile.view);
-  projectile.view.position.x = this.grandma.view.position.x;
-  projectile.view.position.y = this.grandma.view.position.y;
+  projectile.spawn(this.grandma.view.position, 'cupcake', 2);
 }
 
 
@@ -95,7 +93,7 @@ Game.prototype.update = function() {
     this.touchArea.setUp(false);
   }
 
-  if (this.frame%100 === 0) this.shoot();
+  if (this.frame%50 === 0) this.shoot();
 
   var i = this.projectiles.length;
   while (i--) {
