@@ -1,4 +1,5 @@
 var PIXI = require('pixi.js');
+var Config = require('../Config');
 var Grandma = require('./Grandma');
 var Alien = require('./Alien');
 var Time = require('./Time');
@@ -25,9 +26,15 @@ var Game = function() {
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
+
   this.summonTime = 240;
   this.frame = 0;
   this.grandma.view.position.y = this.ground;
+
+  if (Config.debug) {
+    this.summonTime = 30;
+    this.summonAlien();
+  }
 };
 
 Game.prototype.summonAlien = function(){

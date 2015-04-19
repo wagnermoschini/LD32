@@ -52,4 +52,15 @@ Balloon.prototype.removeDemand = function(type) {
 	this.updateDemands();
 }
 
+Balloon.prototype.dispose = function() {
+	var i = this.icons.length;
+	while (i--) {
+		this.icons[i].dispose();
+	}
+	this.icons[i] = null;
+
+	if (this.view.parent) this.view.parent.removeChild(this);
+	this.view = null;
+}
+
 module.exports = Balloon;
