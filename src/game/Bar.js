@@ -7,7 +7,7 @@ var Bar = function() {
 
   this.view = new PIXI.DisplayObjectContainer();
   this.view.position.x = -53;
-  this.view.position.y = -(LAYOUT.screenSize.h / 2) + 20;
+  this.view.position.y = -(LAYOUT.screenSize.h/LAYOUT.scale/2) + 20;
 
   this.base = new PIXI.Graphics();
   this.base.beginFill(0x000000);
