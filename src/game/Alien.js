@@ -57,9 +57,7 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-
   this.view.position.x += this.direction;
-
 }
 
 Alien.prototype.removeDemand = function(demand) {

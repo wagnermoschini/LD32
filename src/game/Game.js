@@ -27,25 +27,27 @@ var Game = function() {
   this.scenario.anchor.y = 0.5;
 
 
-  this.summonTime = 240;
+  this.summonTime = 480;
   this.frame = 0;
   this.grandma.view.position.y = this.ground;
 
-  if (Config.debug) {
-    this.summonTime = 30;
-    this.summonAlien();
-  }
+  // if (Config.debug) {
+  //   this.summonTime = 30;
+  //   this.summonAlien();
+  // }
 };
 
 Game.prototype.summonAlien = function(){
   var direction = Math.random() < .5 ? 1 : -1;
   var alien = new Alien(direction, this.range);
-  
+
   alien.view.position.y = this.ground;
   this.aliens.push(alien);
   this.view.addChild( this.aliens[this.aliens.length - 1].view );
 }
 
+
+// UPDATE
 Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
@@ -53,7 +55,7 @@ Game.prototype.update = function() {
   this.bar.update();
 
   if(this.frame % this.summonTime === 0){
-    this.summonAlien();
+    // this.summonAlien();
   }
 
   if(this.aliens.length > 0){
@@ -62,6 +64,5 @@ Game.prototype.update = function() {
     }
   }
 }
-
 
 module.exports = Game;
