@@ -28,3 +28,7 @@ node_modules
 
 # Mac
 .DS_Store
+
+
+# build file
+release/main.js
