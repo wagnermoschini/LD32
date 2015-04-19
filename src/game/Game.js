@@ -1,11 +1,9 @@
 var PIXI = require('pixi.js');
 var Grandma = require('./Grandma');
 var Alien = require('./Alien');
-var Timer = require('./Time');
+var Time = require('./Time');
 
 var Game = function(w) {
-
-
   this.view = new PIXI.DisplayObjectContainer();
 
   //range defines the aliens summon origin
@@ -15,7 +13,7 @@ var Game = function(w) {
   // this.alien =  new Alien('left',this.range);
   this.aliens = [];
   this.grandma = new Grandma();
-  this.time = new Timer(0);
+  this.time = new Time();
 
   this.view.addChild(this.scenario);
   this.view.addChild(this.grandma.view);
@@ -23,7 +21,7 @@ var Game = function(w) {
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
-  this.summonTime = 50;
+  this.summonTime = 0;
 
 };
 
@@ -36,8 +34,9 @@ Game.prototype.summonAlien = function(){
 
 Game.prototype.update = function() {
   this.time.update();
-
-  if(this.time.get() % this.summonTime == 0){
+  this.summonTime += this.time.delta;
+  if(this.summonTime > 1){
+  	this.summonTime = 0;
     this.summonAlien();
   }
 
