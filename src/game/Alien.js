@@ -15,12 +15,8 @@ var Alien = function( direction, rangeX ) {
   this.randomizeType();
   this.randomizeDemands();
 
-  if(this.direction === 'left'){
-    this.image.scale.x = -1;
-    this.view.position.x = -rangeX;
-  } else {
-    this.view.position.x = rangeX;
-  }
+  this.image.scale.x = -this.direction;
+  this.view.position.x = rangeX*-this.direction;
 
   this.view.addChild(this.balloon.view);
   this.balloon.view.y = -26;
@@ -62,11 +58,7 @@ Alien.prototype.randomizeDemands = function() {
 
 Alien.prototype.update = function(){
 
-  if(this.direction === 'left'){
-    this.view.position.x += 1;
-  } else {
-    this.view.position.x -= 1;
-  }
+  this.view.position.x += this.direction;
 
 }
 

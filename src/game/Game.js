@@ -38,8 +38,8 @@ var Game = function() {
 };
 
 Game.prototype.summonAlien = function(){
-  var direction = ( Math.round( Math.random() ) ) ? "left":"right";
-  var alien = new Alien(direction,this.range);
+  var direction = Math.random() < .5 ? 1 : -1;
+  var alien = new Alien(direction, this.range);
   
   alien.view.position.y = this.ground;
   this.aliens.push(alien);
