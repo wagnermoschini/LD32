@@ -11,7 +11,7 @@ var App = function() {
   var container = new PIXI.DisplayObjectContainer();
   var game = null;
   var assetLoader = null;
-  var scale = 1;
+  var scale = 2;
 
   function init() {
 
