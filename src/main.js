@@ -1,3 +1,5 @@
 var App = require('./App');
 
-new App();
+var app = new App();
+
+window.layout = app.layout;

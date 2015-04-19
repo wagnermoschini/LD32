@@ -1,17 +1,30 @@
 var PIXI = require('pixi.js');
 var Game = require('./game/Game');
 
+var Layout = function() {
+  this.screenSize = {w:0, h:0};
+  this.worldSize = {w:0, h:0};
+}
+
 var App = function() {
 
   PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
 
+  var layout = new Layout();
+  layout.screenSize.w = 700;
+  layout.screenSize.h = 400;
+  layout.worldSize.w = 700;
+  layout.worldSize.h = 400;
+  this.layout = layout;
+
   var requestAnimationFrame = window.requestAnimationFrame;
   var stage = new PIXI.Stage();
-  var renderer = PIXI.autoDetectRenderer(700, 400);
+  var renderer = PIXI.autoDetectRenderer(layout.screenSize.w, layout.screenSize.h);
   var container = new PIXI.DisplayObjectContainer();
   var game = null;
   var assetLoader = null;
   var scale = 1;
+
 
   function init() {
 

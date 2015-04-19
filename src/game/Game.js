@@ -2,6 +2,7 @@ var PIXI = require('pixi.js');
 var Grandma = require('./Grandma');
 var Alien = require('./Alien');
 var Time = require('./Time');
+var Bar = require('./Bar');
 
 var Game = function(w) {
   this.view = new PIXI.DisplayObjectContainer();
@@ -14,9 +15,11 @@ var Game = function(w) {
   this.aliens = [];
   this.grandma = new Grandma();
   this.time = new Time();
+  this.bar = new Bar();
 
   this.view.addChild(this.scenario);
   this.view.addChild(this.grandma.view);
+  this.view.addChild(this.bar.view);
 
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
