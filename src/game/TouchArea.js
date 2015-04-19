@@ -25,30 +25,27 @@ var TouchArea = function() {
 
   this.view.interactive = true;
 
-
-
   // Private Methods
-
   this.view.mousedown = function(event){
-   console.log("MOUSE DOWN!", event.originalEvent);
-   this.down = true;
-   this.up = false;
- }.bind(this);
+    console.log("MOUSE DOWN!");
+    this.down = true;
+    this.up = false;
+  }.bind(this);
 
   this.view.mouseup = function(event){
-     console.log("MOUSE UP!", event.originalEvent);
+    console.log("MOUSE UP!");
   }
 
   this.view.touchstart = function(event){
-     console.log("TOUCH START!", event.originalEvent);
-     this.down = true;
-     this.up = false;
+    console.log("TOUCH START!");
+    this.down = true;
+    this.up = false;
   }.bind(this);
 
   this.view.touchend = function(event){
-     console.log("TOUCH END!", event.originalEvent);
-     this.down = false;
-     this.up = true;
+    console.log("TOUCH END!");
+    this.down = false;
+    this.up = true;
   }.bind(this);
 
 }

@@ -56,16 +56,24 @@ Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
 
-  this.bar.update();
+  // this.bar.update();
 
-  if(this.frame % this.summonTime === 0){
-    // this.summonAlien();
+  // if(this.frame % this.summonTime === 0){
+  //   this.summonAlien();
+  // }
+  //
+  // if(this.aliens.length > 0){
+  //   for(var i = 0, len = this.aliens.length; i < len; i++){
+  //     this.aliens[i].update();
+  //   }
+  // }
+
+  if(this.touchArea.isDown){
+    console.log('charge');
   }
 
-  if(this.aliens.length > 0){
-    for(var i = 0, len = this.aliens.length; i < len; i++){
-      this.aliens[i].update();
-    }
+  if(this.touchArea.isUp){
+    console.log('fire');
   }
 }
 
