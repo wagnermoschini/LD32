@@ -26,4 +26,8 @@ Intro.prototype.hide = function() {
   this.view.visible = false;
 }
 
+Intro.prototype.update = function() {
+  
+}
+
 module.exports = Intro;

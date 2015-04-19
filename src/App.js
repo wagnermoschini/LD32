@@ -1,5 +1,6 @@
 var PIXI = require('pixi.js');
 var Config = require('./Config');
+var Spinner = require('./ui/Spinner');
 var Intro = require('./ui/Intro');
 var Game = require('./game/Game');
 
@@ -14,16 +15,23 @@ var App = function() {
   var intro = null;
   var game = null;
   var assetLoader = null;
+  var spinner = new Spinner();
 
   function init() {
 
     document.body.appendChild(renderer.view);
     stage.addChild(container);
 
-    container.scale.x = Config.layout.scale;
-    container.scale.y = Config.layout.scale;
     renderer.scaledWidth = renderer.width/Config.layout.scale;
     renderer.scaledHeight = renderer.height/Config.layout.scale;
+
+    container.scale.x = Config.layout.scale;
+    container.scale.y = Config.layout.scale;
+    container.position.x = renderer.width/2;
+    container.position.y = renderer.height/2;
+
+    container.addChild(spinner.view);
+    spinner.show();
 
     setInterval(update, 1000/60);
     update();
@@ -38,15 +46,16 @@ var App = function() {
   }
 
   function onLoadComplete() {
-    // openIntro();
-    initGame();
+    container.removeChild(spinner);
+    spinner = null;
+
+    openIntro();
+    // initGame();
   }
 
   function openIntro() {
     destroyGame();
     if (!intro) intro = new Intro();
-    intro.view.position.x = renderer.scaledWidth/2;
-    intro.view.position.y = renderer.scaledHeight/2;
     container.addChild(intro.view);
     intro.show();
     intro.btnPlay.onPress = function() {
@@ -58,8 +67,6 @@ var App = function() {
   function initGame() {
     if (game) return;
     game = new Game(renderer.scaledWidth);
-    game.view.position.x = renderer.scaledWidth/2;
-    game.view.position.y = renderer.scaledHeight/2;
     container.addChild(game.view);
   }
 
@@ -71,6 +78,8 @@ var App = function() {
   }
 
   function update() {
+    if (spinner) spinner.update();
+    if (intro) intro.update();
     if(game) game.update();
   }
 
