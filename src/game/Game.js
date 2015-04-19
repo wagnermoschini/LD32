@@ -12,23 +12,42 @@ var Game = function(w) {
   this.range = w/2;
 
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
-  this.alien =  new Alien(w/2);
+  // this.alien =  new Alien('left',this.range);
   this.aliens = [];
   this.grandma = new Grandma();
   this.time = new Timer(0);
 
   this.view.addChild(this.scenario);
   this.view.addChild(this.grandma.view);
-  this.view.addChild(this.alien.view);
 
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
+
+  this.summonTime = 50;
+
 };
+
+Game.prototype.summonAlien = function(){
+  var direction = ( Math.round( Math.random() ) ) ? "left":"right";
+
+  this.aliens.push(new Alien(direction,this.range));
+  this.view.addChild( this.aliens[this.aliens.length - 1].view );
+}
 
 Game.prototype.update = function() {
   this.time.update();
 
-  this.alien.update(this.time.get());
+  if(this.time.get() % this.summonTime == 0){
+    this.summonAlien();
+  }
+
+  if(this.aliens.length > 0){
+    for(var i = 0, len = this.aliens.length; i < len; i++){
+      this.aliens[i].update();
+    }
+  }
 }
+
+
 
 module.exports = Game;

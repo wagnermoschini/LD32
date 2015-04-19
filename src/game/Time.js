@@ -1,5 +1,6 @@
 var Timer = function(time) {
 	this.timer = time;
+  console.log(time);
 }
 
 Timer.prototype.update = function(){
@@ -7,7 +8,7 @@ Timer.prototype.update = function(){
 }
 
 Timer.prototype.get = function(){
-  return this.time;
+  return this.timer;
 }
 
 module.exports = Timer;
