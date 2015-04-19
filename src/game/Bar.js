@@ -8,6 +8,7 @@ var Bar = function() {
 
   this.view = new PIXI.DisplayObjectContainer();
   this.view.position.y = -(Config.layout.screenSize.h/Config.layout.scale/2) + 20;
+
   this.base = PIXI.Sprite.fromFrame('bar_base.png');
   this.base.position.x = -50;
   this.base.position.y = -8;
@@ -25,16 +26,16 @@ var Bar = function() {
 
   this.bar.scale.x = 0;
 
+  // Coeficient
+  this.coef = 0.005;
 }
 
 Bar.prototype.update = function(){
   if(this.bar.scale.x < 1){
-    this.bar.scale.x += 0.005;
+    this.bar.scale.x += this.coef;
   } else {
     this.bar.scale.x = 1;
   }
 }
-
-
 
 module.exports = Bar;

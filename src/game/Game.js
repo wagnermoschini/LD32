@@ -4,6 +4,7 @@ var Grandma = require('./Grandma');
 var Alien = require('./Alien');
 var Time = require('./Time');
 var Bar = require('./Bar');
+var TouchArea = require('./TouchArea');
 
 var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
@@ -17,11 +18,14 @@ var Game = function() {
   this.grandma = new Grandma();
   this.time = new Time();
   this.bar = new Bar();
+  this.touchArea = new TouchArea();
+
   this.ground = 50;
 
   this.view.addChild(this.scenario);
   this.view.addChild(this.grandma.view);
   this.view.addChild(this.bar.view);
+  this.view.addChild(this.touchArea.view);
 
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
