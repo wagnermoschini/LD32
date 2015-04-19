@@ -2,20 +2,56 @@
 
 "alien.png":
 {
-	"frame": {"x":740,"y":2,"w":26,"h":30},
+	"frame": {"x":740,"y":22,"w":26,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":26,"h":30},
 	"sourceSize": {"w":32,"h":32},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"cake.png":
+{
+	"frame": {"x":740,"y":2,"w":28,"h":18},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":8,"w":28,"h":18},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"cupcake.png":
+{
+	"frame": {"x":740,"y":102,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":17,"h":17},
+	"sourceSize": {"w":19,"h":19},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"donut.png":
+{
+	"frame": {"x":740,"y":84,"w":23,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":23,"h":16},
+	"sourceSize": {"w":25,"h":18},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "grandma.png":
 {
-	"frame": {"x":740,"y":34,"w":24,"h":28},
+	"frame": {"x":740,"y":54,"w":24,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":24,"h":28},
 	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"heart.png":
+{
+	"frame": {"x":740,"y":121,"w":15,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":15,"h":15},
+	"sourceSize": {"w":17,"h":17},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "scenario.png":
@@ -32,8 +68,8 @@
 	"version": "1.0",
 	"image": "textures.png",
 	"format": "RGBA8888",
-	"size": {"w":768,"h":418},
+	"size": {"w":770,"h":418},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:331b908d9d180204887032e7733e14f5:b9f9ba1f07313cc21dc98b83cc226da9:cf827d152df04949dfee256cd0c8efd8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e4a7586ddacc604516fa5fa9c958d2f1:bfff9b5186c511b983327b0a0269cecf:cf827d152df04949dfee256cd0c8efd8$"
 }
 }
