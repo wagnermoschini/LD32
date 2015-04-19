@@ -1,6 +1,7 @@
 var PIXI = require('pixi.js');
 var Config = require('../Config');
 var Grandma = require('./Grandma');
+var Projectile = require('./Projectile');
 var Alien = require('./Alien');
 var Time = require('./Time');
 var Bar = require('./Bar');
@@ -15,6 +16,7 @@ var Game = function() {
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
   // this.alien =  new Alien('left',this.range);
   this.aliens = [];
+  this.projectiles = [];
   this.grandma = new Grandma();
   this.time = new Time();
   this.bar = new Bar();
@@ -53,6 +55,15 @@ Game.prototype.summonAlien = function(){
   this.view.addChild( this.aliens[this.aliens.length - 1].view );
 }
 
+Game.prototype.shoot = function() {
+  var projectile = new Projectile('donut');
+  projectile.speed = 1;
+  this.projectiles.push(projectile);
+  this.view.addChild(projectile.view);
+  projectile.view.position.x = this.grandma.view.position.x;
+  projectile.view.position.y = this.grandma.view.position.y;
+}
+
 
 // UPDATE
 Game.prototype.update = function() {
@@ -82,6 +93,13 @@ Game.prototype.update = function() {
     this.power = 0;
     this.bar.update(this.power);
     this.touchArea.setUp(false);
+  }
+
+  if (this.frame%100 === 0) this.shoot();
+
+  var i = this.projectiles.length;
+  while (i--) {
+    this.projectiles[i].update();
   }
 }
 
