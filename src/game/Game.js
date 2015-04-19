@@ -39,6 +39,8 @@ Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
 
+  this.bar.update();
+
   if(this.frame % this.summonTime === 0){
     this.summonAlien();
   }
