@@ -55,11 +55,21 @@ Game.prototype.summonAlien = function(){
   this.view.addChild( this.aliens[this.aliens.length - 1].view );
 }
 
-Game.prototype.shoot = function() {
+Game.prototype.shoot = function(direction, power) {
+  var direction = (direction == 'left')?-1:1;
+  var recipe = this.getRecipe(power);
+
   var projectile = new Projectile();
   this.projectiles.push(projectile);
   this.view.addChild(projectile.view);
-  projectile.spawn(this.grandma.view.position, 'cupcake', 2);
+
+  projectile.spawn(this.grandma.view.position, recipe, direction);
+}
+
+Game.prototype.getRecipe = function(power){
+  if(power >= 0.8) return Config.recipes[2];
+  if(power >= 0.5) return Config.recipes[1];
+  if(power >= 0.2) return Config.recipes[0];
 }
 
 
@@ -72,15 +82,15 @@ Game.prototype.update = function() {
 
   // this.bar.update();
 
-  // if(this.frame % this.summonTime === 0){
+  // if(this.frame % this.summonTime === 0) {
   //   this.summonAlien();
   // }
-  //
-  // if(this.aliens.length > 0){
-  //   for(var i = 0, len = this.aliens.length; i < len; i++){
-  //     this.aliens[i].update();
-  //   }
-  // }
+
+  if(this.aliens.length > 0){
+    for(var i = 0, len = this.aliens.length; i < len; i++){
+      this.aliens[i].update();
+    }
+  }
 
   if(this.touchArea.down){
     this.power += this.powerCoef;
@@ -88,12 +98,15 @@ Game.prototype.update = function() {
   }
 
   if(this.touchArea.up){
+
+    if(this.power >= 0.2) this.shoot(this.touchArea.getSide(), this.power);
+
     this.power = 0;
     this.bar.update(this.power);
     this.touchArea.setUp(false);
   }
 
-  if (this.frame%50 === 0) this.shoot();
+  // if (this.frame%50 === 0) this.shoot();
 
   var i = this.projectiles.length;
   while (i--) {
