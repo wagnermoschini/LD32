@@ -22,7 +22,6 @@ var Game = function(w) {
   this.scenario.anchor.y = 0.5;
 
   this.summonTime = 0;
-
 };
 
 Game.prototype.summonAlien = function(){
