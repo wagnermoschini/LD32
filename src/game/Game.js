@@ -21,7 +21,8 @@ var Game = function(w) {
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
-  this.summonTime = 0;
+  this.summonTime = 240;
+  this.frame = 0;
 };
 
 Game.prototype.summonAlien = function(){
@@ -33,9 +34,9 @@ Game.prototype.summonAlien = function(){
 
 Game.prototype.update = function() {
   this.time.update();
-  this.summonTime += this.time.delta;
-  if(this.summonTime > 1){
-  	this.summonTime = 0;
+  this.frame += 1;
+
+  if(this.frame % this.summonTime === 0){
     this.summonAlien();
   }
 
@@ -45,7 +46,6 @@ Game.prototype.update = function() {
     }
   }
 }
-
 
 
 module.exports = Game;
