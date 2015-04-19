@@ -1,5 +1,6 @@
 var PIXI = require('pixi.js');
 var Config = require('./Config');
+var Intro = require('./ui/Intro');
 var Game = require('./game/Game');
 
 var App = function() {
@@ -10,6 +11,7 @@ var App = function() {
   var stage = new PIXI.Stage();
   var renderer = PIXI.autoDetectRenderer(Config.layout.screenSize.w, Config.layout.screenSize.h);
   var container = new PIXI.DisplayObjectContainer();
+  var intro = null;
   var game = null;
   var assetLoader = null;
 
@@ -31,16 +33,41 @@ var App = function() {
 
   function load() {
     assetLoader = new PIXI.AssetLoader(['data/textures.json']);
-    assetLoader.onComplete = start;
+    assetLoader.onComplete = onLoadComplete;
     assetLoader.load();
   }
 
-  function start() {
-    console.log('start');
+  function onLoadComplete() {
+    // openIntro();
+    initGame();
+  }
+
+  function openIntro() {
+    destroyGame();
+    if (!intro) intro = new Intro();
+    intro.view.position.x = renderer.scaledWidth/2;
+    intro.view.position.y = renderer.scaledHeight/2;
+    container.addChild(intro.view);
+    intro.show();
+    intro.btnPlay.onPress = function() {
+      intro.hide();
+      initGame();
+    };
+  }
+
+  function initGame() {
+    if (game) return;
     game = new Game(renderer.scaledWidth);
     game.view.position.x = renderer.scaledWidth/2;
     game.view.position.y = renderer.scaledHeight/2;
     container.addChild(game.view);
+  }
+
+  function destroyGame() {
+    if (!game) return;
+    container.removeChild(game.view);
+    game.dispose();
+    game = null;
   }
 
   function update() {

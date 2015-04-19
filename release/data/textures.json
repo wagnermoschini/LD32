@@ -2,7 +2,7 @@
 
 "alien.png":
 {
-	"frame": {"x":2,"y":418,"w":26,"h":30},
+	"frame": {"x":98,"y":418,"w":26,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":26,"h":30},
@@ -11,7 +11,7 @@
 },
 "balloon_1.png":
 {
-	"frame": {"x":404,"y":434,"w":17,"h":13},
+	"frame": {"x":314,"y":452,"w":17,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":1,"w":17,"h":13},
@@ -20,7 +20,7 @@
 },
 "balloon_2.png":
 {
-	"frame": {"x":375,"y":434,"w":27,"h":13},
+	"frame": {"x":285,"y":452,"w":27,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":1,"w":27,"h":13},
@@ -29,7 +29,7 @@
 },
 "balloon_3.png":
 {
-	"frame": {"x":334,"y":435,"w":39,"h":13},
+	"frame": {"x":244,"y":453,"w":39,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":39,"h":13},
@@ -38,7 +38,7 @@
 },
 "bar_base.png":
 {
-	"frame": {"x":105,"y":418,"w":100,"h":16},
+	"frame": {"x":98,"y":450,"w":100,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":16},
@@ -47,7 +47,7 @@
 },
 "bar_cover.png":
 {
-	"frame": {"x":207,"y":418,"w":100,"h":16},
+	"frame": {"x":226,"y":418,"w":100,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":16},
@@ -56,16 +56,52 @@
 },
 "bar_filling.png":
 {
-	"frame": {"x":351,"y":418,"w":98,"h":14},
+	"frame": {"x":261,"y":436,"w":98,"h":14},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":14},
 	"sourceSize": {"w":98,"h":14},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"button_base.png":
+{
+	"frame": {"x":2,"y":418,"w":48,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":48,"h":48},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"button_cover.png":
+{
+	"frame": {"x":52,"y":418,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":44,"h":44},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"button_icon_play.png":
+{
+	"frame": {"x":152,"y":418,"w":14,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":12,"w":14,"h":26},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"button_icon_refresh.png":
+{
+	"frame": {"x":168,"y":418,"w":26,"h":22},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":13,"w":26,"h":22},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "cake.png":
 {
-	"frame": {"x":56,"y":418,"w":28,"h":18},
+	"frame": {"x":196,"y":418,"w":28,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":8,"w":28,"h":18},
@@ -74,7 +110,7 @@
 },
 "cupcake.png":
 {
-	"frame": {"x":86,"y":418,"w":17,"h":17},
+	"frame": {"x":200,"y":447,"w":17,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":17,"h":17},
@@ -83,7 +119,7 @@
 },
 "donut.png":
 {
-	"frame": {"x":309,"y":418,"w":23,"h":16},
+	"frame": {"x":219,"y":447,"w":23,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":23,"h":16},
@@ -92,7 +128,7 @@
 },
 "grandma.png":
 {
-	"frame": {"x":30,"y":418,"w":24,"h":28},
+	"frame": {"x":126,"y":418,"w":24,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":24,"h":28},
@@ -101,7 +137,7 @@
 },
 "heart.png":
 {
-	"frame": {"x":334,"y":418,"w":15,"h":15},
+	"frame": {"x":244,"y":436,"w":15,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":15,"h":15},
@@ -110,7 +146,7 @@
 },
 "icon_cake.png":
 {
-	"frame": {"x":56,"y":438,"w":9,"h":7},
+	"frame": {"x":196,"y":438,"w":9,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":9,"h":7},
@@ -119,7 +155,7 @@
 },
 "icon_cupcake.png":
 {
-	"frame": {"x":78,"y":438,"w":7,"h":7},
+	"frame": {"x":218,"y":438,"w":7,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":7,"h":7},
@@ -128,7 +164,7 @@
 },
 "icon_donut.png":
 {
-	"frame": {"x":67,"y":438,"w":9,"h":7},
+	"frame": {"x":207,"y":438,"w":9,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":9,"h":7},
@@ -149,8 +185,8 @@
 	"version": "1.0",
 	"image": "textures.png",
 	"format": "RGBA8888",
-	"size": {"w":740,"h":450},
+	"size": {"w":740,"h":468},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:47fdd40497de27e155633cc7eac4498b:534213c0104f8c892bfc7dbd94b7fbd5:cf827d152df04949dfee256cd0c8efd8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3e2d51bcea0541c59e8ec929b2f5a928:27f283a86c65d165f46bb497151d2de4:cf827d152df04949dfee256cd0c8efd8$"
 }
 }
