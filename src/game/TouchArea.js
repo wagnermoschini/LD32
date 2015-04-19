@@ -27,41 +27,28 @@ var TouchArea = function() {
 
   // Private Methods
   this.view.mousedown = function(event){
-    console.log("MOUSE DOWN!");
     this.down = true;
     this.up = false;
   }.bind(this);
 
   this.view.mouseup = function(event){
-    console.log("MOUSE UP!");
-  }
+    this.down = false;
+    this.up = true;
+  }.bind(this);
 
   this.view.touchstart = function(event){
-    console.log("TOUCH START!");
     this.down = true;
     this.up = false;
   }.bind(this);
 
   this.view.touchend = function(event){
-    console.log("TOUCH END!");
     this.down = false;
     this.up = true;
   }.bind(this);
 
 }
 
-TouchArea.prototype.isDown = function(){
-  if(this.down){
-    return true;
-  }
-  return false;
+TouchArea.prototype.setUp = function(bool){
+  this.up = bool;
 }
-
-TouchArea.prototype.isUp = function(){
-  if(this.up){
-    return true;
-  }
-  return false;
-}
-
 module.exports = TouchArea;

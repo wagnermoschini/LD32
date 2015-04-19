@@ -30,9 +30,9 @@ var Bar = function() {
   this.coef = 0.005;
 }
 
-Bar.prototype.update = function(){
-  if(this.bar.scale.x < 1){
-    this.bar.scale.x += this.coef;
+Bar.prototype.update = function(val){
+  if(val <= 1){
+    this.bar.scale.x = val;
   } else {
     this.bar.scale.x = 1;
   }

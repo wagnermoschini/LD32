@@ -35,6 +35,9 @@ var Game = function() {
   this.frame = 0;
   this.grandma.view.position.y = this.ground;
 
+  this.power = 0;
+  this.powerCoef = 0.005;
+
   // if (Config.debug) {
   //   this.summonTime = 30;
   //   this.summonAlien();
@@ -68,12 +71,17 @@ Game.prototype.update = function() {
   //   }
   // }
 
-  if(this.touchArea.isDown){
+  if(this.touchArea.down){
     console.log('charge');
+    this.power += this.powerCoef;
+    this.bar.update(this.power);
   }
 
-  if(this.touchArea.isUp){
-    console.log('fire');
+  if(this.touchArea.up){
+    console.log('shoot');
+    this.power = 0;
+    this.bar.update(this.power);
+    this.touchArea.setUp(false);
   }
 }
 
