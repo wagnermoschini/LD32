@@ -37,7 +37,7 @@ var App = function() {
 
   function start() {
     console.log('start');
-    game = new Game();
+    game = new Game(renderer.scaledWidth);
     game.view.position.x = renderer.scaledWidth/2;
     game.view.position.y = renderer.scaledHeight/2;
     container.addChild(game.view);
