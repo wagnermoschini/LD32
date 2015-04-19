@@ -19,7 +19,7 @@ var Alien = function( direction, rangeX ) {
   }
 
   this.view.addChild(this.balloon.view);
-  this.balloon.view.y = -26
+  this.balloon.view.y = -26;
 }
 
 Alien.prototype.setType = function(type, demand) {
@@ -28,7 +28,7 @@ Alien.prototype.setType = function(type, demand) {
   this.image.anchor.x = 0.5;
   this.image.anchor.y = 0.5;
   this.view.addChild(this.image);
-  this.balloon.setup(demand);
+  this.balloon.updateDemands(demand);
 }
 
 Alien.prototype.randomizeType = function() {
