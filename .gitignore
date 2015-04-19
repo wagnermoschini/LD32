@@ -32,3 +32,4 @@ node_modules
 
 # build file
 release/main.js
+./release/main.js
