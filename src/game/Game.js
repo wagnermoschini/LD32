@@ -9,7 +9,7 @@ var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
 
   //range defines the aliens summon origin
-  this.range = LAYOUT.worldSize.w/2;
+  this.range = Config.layout.worldSize.w/2;
 
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
   // this.alien =  new Alien('left',this.range);

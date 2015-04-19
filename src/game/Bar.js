@@ -1,4 +1,5 @@
 var PIXI = require('pixi.js');
+var Config = require('../Config');
 
 var Bar = function() {
 	// this.view = PIXI.Sprite.fromFrame('grandma.png');
@@ -6,7 +7,7 @@ var Bar = function() {
 	// this.view.anchor.y = 0.5;
 
   this.view = new PIXI.DisplayObjectContainer();
-  this.view.position.y = -(LAYOUT.screenSize.h/LAYOUT.scale/2) + 20;
+  this.view.position.y = -(Config.layout.screenSize.h/Config.layout.scale/2) + 20;
 
   this.base = PIXI.Sprite.fromFrame('bar_base.png');
   this.base.position.x = -50;
