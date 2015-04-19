@@ -2,7 +2,7 @@
 
 "alien.png":
 {
-	"frame": {"x":740,"y":52,"w":26,"h":30},
+	"frame": {"x":2,"y":418,"w":26,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":26,"h":30},
@@ -11,7 +11,7 @@
 },
 "balloon_1.png":
 {
-	"frame": {"x":759,"y":132,"w":17,"h":13},
+	"frame": {"x":404,"y":434,"w":17,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":1,"w":17,"h":13},
@@ -20,7 +20,7 @@
 },
 "balloon_2.png":
 {
-	"frame": {"x":740,"y":37,"w":27,"h":13},
+	"frame": {"x":375,"y":434,"w":27,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":1,"w":27,"h":13},
@@ -29,16 +29,43 @@
 },
 "balloon_3.png":
 {
-	"frame": {"x":740,"y":2,"w":39,"h":13},
+	"frame": {"x":334,"y":435,"w":39,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":39,"h":13},
 	"sourceSize": {"w":41,"h":15},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"bar_base.png":
+{
+	"frame": {"x":105,"y":418,"w":100,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":16},
+	"sourceSize": {"w":100,"h":16},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"bar_cover.png":
+{
+	"frame": {"x":207,"y":418,"w":100,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":16},
+	"sourceSize": {"w":100,"h":16},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"bar_filling.png":
+{
+	"frame": {"x":351,"y":418,"w":98,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":14},
+	"sourceSize": {"w":98,"h":14},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "cake.png":
 {
-	"frame": {"x":740,"y":17,"w":28,"h":18},
+	"frame": {"x":56,"y":418,"w":28,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":8,"w":28,"h":18},
@@ -47,7 +74,7 @@
 },
 "cupcake.png":
 {
-	"frame": {"x":740,"y":132,"w":17,"h":17},
+	"frame": {"x":86,"y":418,"w":17,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":17,"h":17},
@@ -56,7 +83,7 @@
 },
 "donut.png":
 {
-	"frame": {"x":740,"y":114,"w":23,"h":16},
+	"frame": {"x":309,"y":418,"w":23,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":23,"h":16},
@@ -65,7 +92,7 @@
 },
 "grandma.png":
 {
-	"frame": {"x":740,"y":84,"w":24,"h":28},
+	"frame": {"x":30,"y":418,"w":24,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":24,"h":28},
@@ -74,7 +101,7 @@
 },
 "heart.png":
 {
-	"frame": {"x":759,"y":147,"w":15,"h":15},
+	"frame": {"x":334,"y":418,"w":15,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":15,"h":15},
@@ -83,7 +110,7 @@
 },
 "icon_cake.png":
 {
-	"frame": {"x":770,"y":17,"w":9,"h":7},
+	"frame": {"x":56,"y":438,"w":9,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":9,"h":7},
@@ -92,7 +119,7 @@
 },
 "icon_cupcake.png":
 {
-	"frame": {"x":770,"y":35,"w":7,"h":7},
+	"frame": {"x":78,"y":438,"w":7,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":7,"h":7},
@@ -101,7 +128,7 @@
 },
 "icon_donut.png":
 {
-	"frame": {"x":770,"y":26,"w":9,"h":7},
+	"frame": {"x":67,"y":438,"w":9,"h":7},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":9,"h":7},
@@ -122,8 +149,8 @@
 	"version": "1.0",
 	"image": "textures.png",
 	"format": "RGBA8888",
-	"size": {"w":781,"h":418},
+	"size": {"w":740,"h":450},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e23573195d4de537f314751a718b474d:34e3ab485a6127d9fea2573850369684:cf827d152df04949dfee256cd0c8efd8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:47fdd40497de27e155633cc7eac4498b:534213c0104f8c892bfc7dbd94b7fbd5:cf827d152df04949dfee256cd0c8efd8$"
 }
 }
