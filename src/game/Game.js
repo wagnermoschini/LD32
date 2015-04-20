@@ -6,6 +6,7 @@ var Alien = require('./Alien');
 var Time = require('./Time');
 var Bar = require('./Bar');
 var TouchArea = require('./TouchArea');
+var Colider = require('./Colider');
 
 var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
@@ -111,7 +112,19 @@ Game.prototype.update = function() {
     this.projectiles[i].update();
   }
 
-  
+  console.log(Colider);
+
+  if(this.projectiles.length > 0 && this.aliens.length > 0){
+    for(var i = 0, len = this.projectiles.length; i < len; i++ ){
+      for(var j = 0, len = this.aliens.length; j < len; j++ ){
+        if(Colider.isColide(this.projectile[i].view.position.x,this.aliens[i].view.position.x)){
+          console.log('colide');
+        }
+      }
+    }
+  }
+
+
 }
 
 module.exports = Game;

@@ -26,7 +26,6 @@ Projectile.prototype.spawn = function(position, type, velocity) {
   this.image.setTexture(this.frames[index]);
   this.view.position.x = position.x;
   this.view.position.y = position.y;
-  this.colisionPoint = this.position.x + (10 *-this.velocity);
   this.velocity = velocity;
 }
 
