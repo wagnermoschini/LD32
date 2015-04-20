@@ -1,28 +1,35 @@
 var PIXI = require('pixi.js');
 var Config = require('../Config');
+var Icon = require('./Icon');
+var Box = require('../ui/Box');
+var Math2 = require('../utils/Math2');
 
 var Bar = function() {
-	// this.view = PIXI.Sprite.fromFrame('grandma.png');
-	// this.view.anchor.x = 0.5;
-	// this.view.anchor.y = 0.5;
-
   this.view = new PIXI.DisplayObjectContainer();
-  this.view.position.y = -(Config.layout.screenSize.h/Config.layout.scale/2) + 20;
+  this.view.position.y = -Config.layout.screenSize.h/Config.layout.scale/2 + 44;
 
   this.base = PIXI.Sprite.fromFrame('bar_base.png');
-  this.base.position.x = -50;
-  this.base.position.y = -8;
+  this.base.position.x = -40;
+  this.base.position.y = -7;
   this.view.addChild(this.base);
 
   this.bar = PIXI.Sprite.fromFrame('bar_filling.png');
-  this.bar.position.x = -49;
-  this.bar.position.y = -7;
+  this.bar.position.x = -37;
+  this.bar.position.y = -4;
   this.view.addChild(this.bar);
 
   this.cover = PIXI.Sprite.fromFrame('bar_cover.png');
-  this.cover.position.x = -50;
-  this.cover.position.y = -8;
+  this.cover.position.x = -40;
+  this.cover.position.y = -7;
   this.view.addChild(this.cover);
+
+  this.icon = new Icon();
+  this.icon.setType('');
+  this.icon.view.scale.x = 2;
+  this.icon.view.scale.y = 2;
+  this.state = -1;
+  this.stateLength = 1/Config.recipes.length;
+  this.view.addChild(this.icon.view);
 
   this.bar.scale.x = 0;
 
@@ -31,11 +38,18 @@ var Bar = function() {
 }
 
 Bar.prototype.update = function(val){
-  if(val <= 1){
-    this.bar.scale.x = val;
-  } else {
-    this.bar.scale.x = 1;
-  }
+  var ratio = Math2.clamp(val, 0, 1);
+  var state = Math.ceil(ratio/this.stateLength) - 1;
+  var alpha = Math.ceil(ratio*1000)%Math.ceil(this.stateLength*1000)/this.stateLength/1000;
+  this.bar.scale.x = ratio;
+  this.icon.setType(Config.recipes[state]);
+
+  // var pos = -10 - (10*alpha);
+  // this.icon.view.position.y = pos;
+  // this.icon.view.alpha = alpha*0.5 + 0.5;
+
+  this.icon.view.position.x = this.bar.position.x + 74*ratio;
+  this.icon.view.position.y = -1;
 }
 
 module.exports = Bar;

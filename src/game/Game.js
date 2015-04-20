@@ -111,6 +111,7 @@ Game.prototype.update = function() {
   while (i--) {
     this.projectiles[i].update();
   }
+  
 
   console.log(Colider);
 
