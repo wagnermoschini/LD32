@@ -174,7 +174,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>images</filename>
+            <filename>artwork/exports</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
