@@ -111,16 +111,16 @@ Game.prototype.update = function() {
   while (i--) {
     this.projectiles[i].update();
   }
-  
 
-  console.log(Colider);
 
   if(this.projectiles.length > 0 && this.aliens.length > 0){
     for(var i = 0, len = this.projectiles.length; i < len; i++ ){
       for(var j = 0, len = this.aliens.length; j < len; j++ ){
-        if(Colider.isColide(this.projectile[i].view.position.x,this.aliens[i].view.position.x)){
+
+        if( Colider.isColide(this.projectile[i].view.position.x,this.projectile[i].view.position.y, this.aliens[i].view.position.x,this.aliens[i].view.position.y)){
           console.log('colide');
         }
+
       }
     }
   }
