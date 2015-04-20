@@ -131,7 +131,6 @@ Game.prototype.update = function() {
             alien.die();
             this.aliens.splice(j, 1);
           }
-
           projectile.dispose();
           this.projectiles.splice(i, 1);
         }
@@ -148,8 +147,7 @@ Game.prototype.update = function() {
   if( this.aliens.length > 0){
     var aliensLength = this.aliens.length;
     while(aliensLength--){
-      var distance = Math2.distance( this.grandma.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
-
+      var distance = Math2.distance( this.grandma.view.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
       if(distance < 10){
         console.log('colide :(');
       }
