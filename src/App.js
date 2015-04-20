@@ -2,6 +2,7 @@ var PIXI = require('pixi.js');
 var Config = require('./Config');
 var Spinner = require('./ui/Spinner');
 var Intro = require('./ui/Intro');
+var Over = require('./ui/Over');
 var Game = require('./game/Game');
 
 var App = function() {
@@ -13,6 +14,7 @@ var App = function() {
   var renderer = PIXI.autoDetectRenderer(Config.layout.screenSize.w, Config.layout.screenSize.h);
   var container = new PIXI.DisplayObjectContainer();
   var intro = null;
+  var over = null;
   var game = null;
   var assetLoader = null;
   var spinner = new Spinner();
@@ -60,6 +62,17 @@ var App = function() {
     intro.show();
     intro.btnPlay.onPress = function() {
       intro.hide();
+      initGame();
+    };
+  }
+
+  function openGameOver(){
+    destroyGame();
+    console.log('oi');
+    if (!over) over = new Over();
+    over.show();
+    over.btnPlay.onPress = function() {
+      over.hide();
       initGame();
     };
   }
