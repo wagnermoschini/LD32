@@ -34,7 +34,8 @@ Projectile.prototype.update = function() {
 }
 
 Projectile.prototype.dispose = function() {
-
+  if (this.view.parent) this.view.parent.removeChild(this.view);
+  this.view = null;
 }
 
 module.exports = Projectile;

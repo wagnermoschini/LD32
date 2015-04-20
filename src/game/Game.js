@@ -7,6 +7,7 @@ var Time = require('./Time');
 var Bar = require('./Bar');
 var TouchArea = require('./TouchArea');
 var Colider = require('./Colider');
+var Math2 = require('../utils/Math2');
 
 var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
@@ -34,7 +35,7 @@ var Game = function() {
   this.scenario.anchor.y = 0.5;
 
 
-  this.summonTime = 480;
+  this.summonTime = 40;
   this.frame = 0;
   this.grandma.view.position.y = this.ground;
 
@@ -112,16 +113,25 @@ Game.prototype.update = function() {
     this.projectiles[i].update();
   }
 
-
+  var hasCollision = false;
   if(this.projectiles.length > 0 && this.aliens.length > 0){
-    for(var i = 0, len = this.projectiles.length; i < len; i++ ){
-      for(var j = 0, len = this.aliens.length; j < len; j++ ){
-
-        if( Colider.isColide(this.projectile[i].view.position.x,this.projectile[i].view.position.y, this.aliens[i].view.position.x,this.aliens[i].view.position.y)){
-          console.log('colide');
+    for(var i = 0, lenA = this.projectiles.length; i < lenA; i++ ){
+      for(var j = 0, lenB = this.aliens.length; j < lenB; j++ ){
+        var projectile = this.projectiles[i];
+        var alien = this.aliens[j];
+        var posProjectile = projectile.view.position;
+        var posAlien = alien.view.position;
+        var distance = Math2.distance(posProjectile.x, posProjectile.y, posAlien.x, posAlien.y);
+        if (distance < 10) {
+          this.projectiles.splice(i, 1);
+          this.aliens.splice(j, 1);
+          projectile.dispose();
+          alien.dispose();
+          hasCollision = true;
+          break;
         }
-
       }
+      if (hasCollision) break;
     }
   }
 

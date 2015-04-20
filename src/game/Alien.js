@@ -74,10 +74,10 @@ Alien.prototype.die = function() {
 }
 
 Alien.prototype.dispose = function() {
-  if (this.view.parent) thid.view.parent.removeChild(this.view);
-  this.view = null;
   this.balloon.dispose();
   this.balloon = null;
+  if (this.view.parent) this.view.parent.removeChild(this.view);
+  this.view = null;
 }
 
 module.exports = Alien;
