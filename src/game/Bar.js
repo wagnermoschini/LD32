@@ -39,9 +39,11 @@ var Bar = function() {
 
 Bar.prototype.update = function(val){
   var ratio = Math2.clamp(val, 0, 1);
-  var state = Math.ceil(ratio/this.stateLength) - 1;
+  var state = this.getState(ratio);
+  console.log(state);
   var alpha = Math.ceil(ratio*1000)%Math.ceil(this.stateLength*1000)/this.stateLength/1000;
   this.bar.scale.x = ratio;
+
   this.icon.setType(Config.recipes[state]);
 
   // var pos = -10 - (10*alpha);
@@ -50,6 +52,21 @@ Bar.prototype.update = function(val){
 
   this.icon.view.position.x = this.bar.position.x + 74*ratio;
   this.icon.view.position.y = -1;
+}
+
+Bar.prototype.getState = function(ratio){
+
+  if(ratio >= .8){
+    return 2;
+  }
+  if(ratio >= .4){
+    return 1;
+  }
+  if(ratio >= .1){
+    return 0;
+  }
+  return -1;
+
 }
 
 module.exports = Bar;
