@@ -59,12 +59,12 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  this.view.position.x += this.direction*2;
+  this.view.position.x += this.direction/2;
 }
 
 Alien.prototype.removeDemand = function(demand) {
-  var demandIndex = this.demands.indexOf(type);
-  if (demandIndex < 0) return;
+  var demandIndex = this.demands.indexOf(demand);
+  if (demandIndex < 0) return false;
   this.demands.splice(demandIndex, 1);
   this.balloon.removeDemand(demand);
   if (this.demands.length == 0) this.die();
