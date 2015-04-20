@@ -17,6 +17,7 @@ var Alien = function( direction, rangeX ) {
 
   this.image.scale.x = -this.direction;
   this.view.position.x = rangeX*-this.direction;
+  this.colisionPoint = this.position.x + (20 *-this.direction);
 
   this.view.addChild(this.balloon.view);
   this.balloon.view.y = -26;
@@ -57,7 +58,7 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  this.view.position.x += this.direction;
+  this.view.position.x += this.direction/4;
 }
 
 Alien.prototype.removeDemand = function(demand) {
