@@ -42,6 +42,8 @@ var Game = function() {
   this.power = 0;
   this.powerCoef = 0.01;
 
+  this.onGameOver = false;
+
   // if (Config.debug) {
   //   this.summonTime = 30;
   //   this.summonAlien();
@@ -149,7 +151,7 @@ Game.prototype.update = function() {
     while(aliensLength--){
       var distance = Math2.distance( this.grandma.view.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
       if(distance < 10){
-        console.log('colide :(');
+        this.onGameOver = true;
       }
     }
   }

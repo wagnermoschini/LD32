@@ -73,14 +73,18 @@ var App = function() {
   function destroyGame() {
     if (!game) return;
     container.removeChild(game.view);
-    game.dispose();
     game = null;
   }
 
   function update() {
     if (spinner) spinner.update();
     if (intro) intro.update();
-    if(game) game.update();
+    if(game){
+      game.update();
+      if(game.onGameOver){
+        openIntro();
+      }
+    }
   }
 
   function render() {
