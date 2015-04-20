@@ -77,7 +77,6 @@ Alien.prototype.removeDemand = function(demand) {
 
 Alien.prototype.die = function() {
   console.log('alien explodes!');
-  this.dispose();
 }
 
 Alien.prototype.dispose = function() {

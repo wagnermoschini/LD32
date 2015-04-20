@@ -81,10 +81,12 @@ var App = function() {
     if (game) return;
     game = new Game(renderer.scaledWidth);
     container.addChild(game.view);
+    game.onFinish = openIntro;
   }
 
   function destroyGame() {
     if (!game) return;
+    game.onFinish = null;
     container.removeChild(game.view);
     game = null;
   }
@@ -94,9 +96,6 @@ var App = function() {
     if (intro) intro.update();
     if(game){
       game.update();
-      if(game.onGameOver){
-        openIntro();
-      }
     }
   }
 

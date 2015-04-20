@@ -43,11 +43,8 @@ var Game = function() {
   this.powerCoef = 0.01;
 
   this.onGameOver = false;
-
-  // if (Config.debug) {
-  //   this.summonTime = 30;
-  //   this.summonAlien();
-  // }
+  this.running = true;
+  this.onFinish = null;
 };
 
 Game.prototype.summonAlien = function(){
@@ -57,6 +54,12 @@ Game.prototype.summonAlien = function(){
   alien.view.position.y = this.ground;
   this.aliens.push(alien);
   this.view.addChild( this.aliens[this.aliens.length - 1].view );
+}
+
+Game.prototype.removeAlien = function(alienIndex) {
+  var alien = this.aliens[alienIndex];
+  alien.dispose();
+  this.aliens.splice(alienIndex, 1);
 }
 
 Game.prototype.shoot = function(direction, power) {
@@ -82,11 +85,8 @@ Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
 
-  this.grandma.update(this.touchArea.getSide(), this.touchArea.down);
 
-  // this.bar.update();
-
-  if(this.frame % this.summonTime === 0) {
+  if(this.frame % this.summonTime === 0 && this.running) {
     this.summonAlien();
   }
 
@@ -96,19 +96,25 @@ Game.prototype.update = function() {
     }
   }
 
-  if(this.touchArea.down){
+  if(this.touchArea.down && this.running){
     this.power += this.powerCoef;
     this.bar.update(this.power);
   }
 
-  if(this.touchArea.up){
+  var shoot = false;
+  if(this.touchArea.up && this.running){
 
-    if(this.power >= 0.2) this.shoot(this.touchArea.getSide(), this.power);
+    if(this.power >= 0.2) {
+      this.shoot(this.touchArea.getSide(), this.power);
+      shoot = true;
+    }
 
     this.power = 0;
     this.bar.update(this.power);
     this.touchArea.setUp(false);
   }
+
+  this.grandma.update(this.touchArea.getSide(), this.touchArea.down, shoot);
 
   var i = this.projectiles.length;
   while (i--) {
@@ -131,7 +137,7 @@ Game.prototype.update = function() {
           var isDead = alien.removeDemand(demand);
           if (isDead) {
             alien.die();
-            this.aliens.splice(j, 1);
+            this.removeAlien(j);
           }
           projectile.dispose();
           this.projectiles.splice(i, 1);
@@ -146,18 +152,28 @@ Game.prototype.update = function() {
 
 
   // Colision GrandMa
-  if( this.aliens.length > 0){
+  if( this.aliens.length > 0 && this.running){
     var aliensLength = this.aliens.length;
     while(aliensLength--){
       var distance = Math2.distance( this.grandma.view.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
       if(distance < 10){
+        this.removeAlien(aliensLength);
         this.onGameOver = true;
+        this.finish();
       }
     }
   }
   // End Colision GrandMa
 
 
+}
+
+Game.prototype.finish = function() {
+  this.running = false;
+  this.grandma.die();
+  this.time.addCallback(this, function(){
+    if (this.onFinish) this.onFinish();
+  }, 2);
 }
 
 module.exports = Game;
