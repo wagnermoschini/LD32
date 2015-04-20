@@ -19,15 +19,17 @@ var Alien = function( direction, rangeX ) {
   this.view.position.x = rangeX*-this.direction;
 
   this.view.addChild(this.balloon.view);
-  this.balloon.view.y = -26;
+  // this.balloon.view.y = -26;
 }
 
 Alien.prototype.setType = function(type) {
+  if (this.image) this.view.removeChild(this.image);
   this.type = type;
-  this.image = PIXI.Sprite.fromFrame('alien.png');
+  this.image = PIXI.Sprite.fromFrame(Config.aliens[type - 1] + '.png');
   this.image.anchor.x = 0.5;
-  this.image.anchor.y = 0.5;
+  this.image.position.y = -this.image.height + 16;
   this.view.addChild(this.image);
+  this.balloon.view.y = this.image.position.y - 8;
 }
 
 Alien.prototype.randomizeType = function() {
@@ -57,7 +59,7 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  this.view.position.x += this.direction/4;
+  this.view.position.x += this.direction*2;
 }
 
 Alien.prototype.removeDemand = function(demand) {
