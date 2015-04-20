@@ -9,7 +9,7 @@ var Icon = function() {
 	var i = Config.recipes.length;
 	while (i--) {
 		var frame = 'icon_' + Config.recipes[i] + '.png';
-		var img = PIXI.Sprite.fromFrame(frame); 
+		var img = PIXI.Sprite.fromFrame(frame);
 		img.anchor.x = 0.5;
 		img.anchor.y = 0.5;
 		img.visible = false;
@@ -19,6 +19,8 @@ var Icon = function() {
 };
 
 Icon.prototype.setType = function(type) {
+	if (this.type == type) return;
+	this.type = type;
 	var i = this.images.length;
 	var typeIndex = Config.recipes.indexOf(type);
 	while (i--) {
