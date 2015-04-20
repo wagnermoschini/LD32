@@ -113,6 +113,8 @@ Game.prototype.update = function() {
     this.projectiles[i].update();
   }
 
+  // Colision Aliens
+
   var hasCollision = false;
 
   if(this.projectiles.length > 0 && this.aliens.length > 0){
@@ -138,6 +140,22 @@ Game.prototype.update = function() {
       if (hasCollision) break;
     }
   }
+
+  // End Colision Aliens
+
+
+  // Colision GrandMa
+  if( this.aliens.length > 0){
+    var aliensLength = this.aliens.length;
+    while(aliensLength--){
+      var distance = Math2.distance( this.grandma.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
+
+      if(distance < 10){
+        console.log('colide :(');
+      }
+    }
+  }
+  // End Colision GrandMa
 
 
 }
