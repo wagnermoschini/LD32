@@ -40,7 +40,7 @@ var Bar = function() {
 Bar.prototype.update = function(val){
   var ratio = Math2.clamp(val, 0, 1);
   var state = this.getState(ratio);
-  console.log(state);
+  // console.log(state);
   var alpha = Math.ceil(ratio*1000)%Math.ceil(this.stateLength*1000)/this.stateLength/1000;
   this.bar.scale.x = ratio;
 

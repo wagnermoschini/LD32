@@ -82,7 +82,7 @@ Game.prototype.update = function() {
   this.time.update();
   this.frame += 1;
 
-  this.grandma.update(this.touchArea.getSide());
+  this.grandma.update(this.touchArea.getSide(), this.touchArea.down);
 
   // this.bar.update();
 
