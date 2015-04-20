@@ -13,7 +13,7 @@ var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
 
   //range defines the aliens summon origin
-  this.range = Config.layout.worldSize.w/2;
+  this.range = Config.layout.worldSize.w/4;
 
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
   // this.alien =  new Alien('left',this.range);
@@ -40,7 +40,7 @@ var Game = function() {
   this.grandma.view.position.y = this.ground;
 
   this.power = 0;
-  this.powerCoef = 0.005;
+  this.powerCoef = 0.01;
 
   // if (Config.debug) {
   //   this.summonTime = 30;
@@ -113,20 +113,29 @@ Game.prototype.update = function() {
     this.projectiles[i].update();
   }
 
+  var hasCollision = false;
+
   if(this.projectiles.length > 0 && this.aliens.length > 0){
     for(var i = this.projectiles.length-1; i >= 0; i--){
       for(var j = this.aliens.length-1; j >= 0; j--){
         var projectile = this.projectiles[i];
         var alien =  this.aliens[j];
+        var demand = projectile.type;
         var distance = Math2.distance( projectile.view.position.x, projectile.view.position.y, alien.view.position.x, alien.view.position.y);
-        if (distance < 10) {
-          if(this.aliens[j].removeDemand(this.projectiles[i].type)){
+        if (distance < 10 && alien.hasDemand(demand)) {
+          hasCollision = true;
+          var isDead = alien.removeDemand(demand);
+          if (isDead) {
+            alien.die();
             this.aliens.splice(j, 1);
-            this.projectiles[i].dispose();
-            this.projectiles.splice(i, 1);
           }
+
+          projectile.dispose();
+          this.projectiles.splice(i, 1);
         }
+        if (hasCollision) break;
       }
+      if (hasCollision) break;
     }
   }
 

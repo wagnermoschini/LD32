@@ -4,7 +4,7 @@ var Icon = require('./Icon');
 
 var Balloon = function() {
 	this.view = new PIXI.DisplayObjectContainer();
-	this.bases = [];	
+	this.bases = [];
 	this.icons = [];
 	this.demands = [];
 
@@ -27,24 +27,24 @@ var Balloon = function() {
 };
 
 Balloon.prototype.updateDemands = function(demands) {
-	if (demands) this.demands = demands;
+	if (demands) this.demands = demands.slice();
 
 	var i = this.bases.length;
 	while (i--) {
 		var visible = i == (this.demands.length - 1);
-		this.bases[i].visible = visible;	
+		this.bases[i].visible = visible;
 	}
 
 	var spacing = 11;
 	var offset = (this.demands.length - 1)*spacing/2;
 	var i = this.icons.length;
-	
+
 	while (i--) {
 		var icon = this.icons[i];
 		icon.setType(this.demands[i]);
 		icon.view.position.x = i*spacing - offset;
 	}
-} 
+}
 
 Balloon.prototype.removeDemand = function(type) {
 	var demandIndex = this.demands.indexOf(type);

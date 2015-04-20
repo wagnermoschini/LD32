@@ -62,12 +62,17 @@ Alien.prototype.update = function(){
   this.view.position.x += this.direction/2;
 }
 
+Alien.prototype.hasDemand = function(demand) {
+  return this.demands.indexOf(demand) >= 0;
+}
+
 Alien.prototype.removeDemand = function(demand) {
   var demandIndex = this.demands.indexOf(demand);
   if (demandIndex < 0) return false;
+  console.log(demand);
   this.demands.splice(demandIndex, 1);
   this.balloon.removeDemand(demand);
-  if (this.demands.length == 0) this.die();
+  return this.demands.length == 0;
 }
 
 Alien.prototype.die = function() {
