@@ -7,6 +7,7 @@ var Movie = require('../utils/Movie');
 var Alien = function( direction, rangeX ) {
 
   this.view = new PIXI.DisplayObjectContainer();
+  this.image = new PIXI.DisplayObjectContainer();
   this.direction = direction;
   this.range = rangeX;
   this.type = 0;
@@ -16,33 +17,39 @@ var Alien = function( direction, rangeX ) {
   this.view.addChild(this.balloon.view);
   this.movie = new Movie();
   this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
+  this.movie.addScene('alien2_walking', 0.1, Movie.LOOP);
+  this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
+
+  this.view.addChild(this.image);
 
   this.randomizeType();
   this.randomizeDemands();
-
   this.view.position.x = rangeX*-this.direction;
 }
 
 Alien.prototype.setType = function(type) {
-  if (this.image) this.view.removeChild(this.image);
+  var id = Config.aliens[type-1];
   this.type = type;
+  this.image.addChild(this.movie.view);
+  this.movie.view.visible = true;
+  this.movie.play(id+'_walking');
 
-  if (type == 1) {
-    this.image = new PIXI.DisplayObjectContainer();
-    this.movie.view.visible = true;
-    this.image.addChild(this.movie.view);
-    this.movie.view.visible = true;
-    this.movie.play('alien1_walking');
-    this.movie.view.position.x = -12;
-    this.image.position.y = -24 + 16;
-  } else {
-    this.movie.view.visible = false;
-    this.image = PIXI.Sprite.fromFrame(Config.aliens[type - 1] + '.png');
-    this.image.anchor.x = 0.5;
-    this.image.position.y = -this.image.height + 16;
+  var size = 24;
+
+  switch (type) {
+    case 1:
+      size = 24;
+      break;
+    case 2:
+      size = 32;
+      break;
+    case 3:
+      size = 42;
+      break;
   }
 
-  this.view.addChild(this.image);
+  this.movie.view.position.x = -size/2;
+  this.image.position.y = -size + 16;
   this.image.scale.x = -this.direction;
   this.balloon.view.y = this.image.position.y - 8;
 }
