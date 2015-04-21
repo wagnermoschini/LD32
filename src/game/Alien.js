@@ -20,6 +20,7 @@ var Alien = function( direction, rangeX ) {
   this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien2_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
+  this.movie.addScene('alien3_eating', 0.1, Movie.ONCE, 'alien3_walking');
 
   this.view.addChild(this.image);
   this.image.addChild(this.movie.view);
@@ -72,7 +73,9 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  this.view.position.x += this.direction*this.speed*Config.overallAlienSpeed;
+  if (this.movie.currentSceneId != 'alien3_eating') {
+    this.view.position.x += this.direction*this.speed*Config.overallAlienSpeed;
+  }
   this.movie.update();
 }
 
@@ -83,9 +86,9 @@ Alien.prototype.hasDemand = function(demand) {
 Alien.prototype.removeDemand = function(demand) {
   var demandIndex = this.demands.indexOf(demand);
   if (demandIndex < 0) return false;
-  console.log(demand);
   this.demands.splice(demandIndex, 1);
   this.balloon.removeDemand(demand);
+  if (this.type == 3) this.movie.play('alien3_eating');
   return this.demands.length == 0;
 }
 
