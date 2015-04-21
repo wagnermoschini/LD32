@@ -81,7 +81,9 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  this.view.position.x += this.direction/2;
+  var speed = 0.75;
+  if (this.type == 3) speed = 0.2;
+  this.view.position.x += this.direction*speed;
   this.movie.update();
 }
 
