@@ -2,6 +2,7 @@ var PIXI = require('pixi.js');
 var Config = require('../Config');
 var Balloon = require('./Balloon');
 var Random = require('../utils/Random');
+var Movie = require('../utils/Movie');
 
 var Alien = function( direction, rangeX ) {
 
@@ -12,23 +13,37 @@ var Alien = function( direction, rangeX ) {
   this.demands = [];
   this.balloon = new Balloon();
 
+  this.view.addChild(this.balloon.view);
+  this.movie = new Movie();
+  this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
+
   this.randomizeType();
   this.randomizeDemands();
 
-  this.image.scale.x = -this.direction;
   this.view.position.x = rangeX*-this.direction;
-
-  this.view.addChild(this.balloon.view);
-  // this.balloon.view.y = -26;
 }
 
 Alien.prototype.setType = function(type) {
   if (this.image) this.view.removeChild(this.image);
   this.type = type;
-  this.image = PIXI.Sprite.fromFrame(Config.aliens[type - 1] + '.png');
-  this.image.anchor.x = 0.5;
-  this.image.position.y = -this.image.height + 16;
+
+  if (type == 1) {
+    this.image = new PIXI.DisplayObjectContainer();
+    this.movie.view.visible = true;
+    this.image.addChild(this.movie.view);
+    this.movie.view.visible = true;
+    this.movie.play('alien1_walking');
+    this.movie.view.position.x = -12;
+    this.image.position.y = -24 + 16;
+  } else {
+    this.movie.view.visible = false;
+    this.image = PIXI.Sprite.fromFrame(Config.aliens[type - 1] + '.png');
+    this.image.anchor.x = 0.5;
+    this.image.position.y = -this.image.height + 16;
+  }
+
   this.view.addChild(this.image);
+  this.image.scale.x = -this.direction;
   this.balloon.view.y = this.image.position.y - 8;
 }
 
@@ -60,6 +75,7 @@ Alien.prototype.randomizeDemands = function() {
 
 Alien.prototype.update = function(){
   this.view.position.x += this.direction/2;
+  this.movie.update();
 }
 
 Alien.prototype.hasDemand = function(demand) {
