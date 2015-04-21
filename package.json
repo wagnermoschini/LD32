@@ -8,7 +8,8 @@
     "build-release": "browserify src/main.js | uglifyjs -mc > release/main.js",
     "watch": "watchify src/main.js -o release/main.js -dv",
     "lint": "jshint src/",
-    "server": "http-server"
+    "server": "http-server",
+    "deploy": "gulp deploy"
   },
   "author": "",
   "license": "ISC",
