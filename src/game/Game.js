@@ -73,6 +73,10 @@ Game.prototype.shoot = function(direction, power) {
   projectile.spawn(this.grandma.view.position, recipe, direction);
 }
 
+Game.prototype.removeProjectile = function(projectileIndex) {
+  this.projectiles.splice(projectileIndex, 1);
+}
+
 Game.prototype.getRecipe = function(power){
   if(power >= 0.8) return Config.recipes[2];
   if(power >= 0.5) return Config.recipes[1];
@@ -127,20 +131,24 @@ Game.prototype.update = function() {
 
   if(this.projectiles.length > 0 && this.aliens.length > 0){
     for(var i = this.projectiles.length-1; i >= 0; i--){
+      var projectile = this.projectiles[i];
+      if (projectile.eaten) continue;
       for(var j = this.aliens.length-1; j >= 0; j--){
-        var projectile = this.projectiles[i];
         var alien =  this.aliens[j];
         var demand = projectile.type;
         var distance = Math2.distance( projectile.view.position.x, projectile.view.position.y, alien.view.position.x, alien.view.position.y);
         if (distance < 10 && alien.hasDemand(demand)) {
           hasCollision = true;
           var isDead = alien.removeDemand(demand);
+          this.removeProjectile(i);
+
           if (isDead) {
             alien.die();
             this.removeAlien(j);
+            projectile.dispose();
+          } else {
+            alien.eat(projectile);
           }
-          projectile.dispose();
-          this.projectiles.splice(i, 1);
         }
         if (hasCollision) break;
       }

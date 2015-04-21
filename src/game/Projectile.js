@@ -9,6 +9,7 @@ var Projectile = function() {
   this.type = '';
   this.frames = [];
   this.velocity = 0;
+  this.eaten = false;
 
   this.view.addChild(this.image);
 

@@ -5,6 +5,7 @@ var Random = require('../utils/Random');
 var Movie = require('../utils/Movie');
 
 var Alien = function( direction, rangeX ) {
+  var self = this;
 
   this.view = new PIXI.DisplayObjectContainer();
   this.image = new PIXI.DisplayObjectContainer();
@@ -20,7 +21,9 @@ var Alien = function( direction, rangeX ) {
   this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien2_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
-  this.movie.addScene('alien3_eating', 0.2, Movie.ONCE, 'alien3_walking');
+  this.movie.addScene('alien3_eating', 0.2, Movie.ONCE, 'alien3_walking', [{frame:1, action:function() {
+    self.onEat();
+  }}]);
 
   this.view.addChild(this.image);
   this.image.addChild(this.movie.view);
@@ -28,6 +31,7 @@ var Alien = function( direction, rangeX ) {
   this.randomizeType();
   this.randomizeDemands();
   this.view.position.x = rangeX*-this.direction;
+  this.thingToEat = null;
 }
 
 Alien.prototype.setType = function(type) {
@@ -88,8 +92,23 @@ Alien.prototype.removeDemand = function(demand) {
   if (demandIndex < 0) return false;
   this.demands.splice(demandIndex, 1);
   this.balloon.removeDemand(demand);
-  if (this.type == 3) this.movie.play('alien3_eating');
   return this.demands.length == 0;
+}
+
+Alien.prototype.eat = function(something) {
+  this.thingToEat = something;
+  this.thingToEat.eaten = true;
+  if (this.type == 3) {
+    this.movie.play('alien3_eating');
+  } else {
+    this.onEat();
+  }
+}
+
+Alien.prototype.onEat = function() {
+  if (!this.thingToEat) return;
+  this.thingToEat.dispose();
+  this.thingToEat = null;
 }
 
 Alien.prototype.die = function() {

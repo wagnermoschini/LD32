@@ -10,7 +10,7 @@ var Movie = function() {
   this.view.addChild(this.image);
 }
 
-Movie.prototype.addScene = function(id, speed, mode, to) {
+Movie.prototype.addScene = function(id, speed, mode, to, actions) {
   var scene = {};
   scene.id = id;
   scene.speed = speed;
@@ -35,6 +35,7 @@ Movie.prototype.addScene = function(id, speed, mode, to) {
   scene.frames = frames;
   scene.position = 0;
   scene.totalFrames = scene.frames.length;
+  scene.actions = actions;
 }
 
 Movie.prototype.play = function (id) {
@@ -52,6 +53,7 @@ Movie.prototype.update = function() {
   var texture = scene.frames[index];
 
   if (this.currentTexture != texture) {
+    if (scene.actions) this.checkActions(scene, index);
     this.image.setTexture(texture);
   }
 
@@ -62,6 +64,17 @@ Movie.prototype.update = function() {
     } else {
       scene.position = scene.totalFrames - 1;
       if (scene.to) this.play(scene.to);
+    }
+  }
+}
+
+Movie.prototype.checkActions = function(scene, index) {
+  if (!scene.actions) return;
+  var i = scene.actions.length;
+  while (i--) {
+    var a = scene.actions[i];
+    if (a.frame == index) {
+      a.action();
     }
   }
 }
