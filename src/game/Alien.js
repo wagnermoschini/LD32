@@ -13,6 +13,7 @@ var Alien = function( direction, rangeX ) {
   this.type = 0;
   this.demands = [];
   this.balloon = new Balloon();
+  this.speed = 0;
 
   this.view.addChild(this.balloon.view);
   this.movie = new Movie();
@@ -21,6 +22,7 @@ var Alien = function( direction, rangeX ) {
   this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
 
   this.view.addChild(this.image);
+  this.image.addChild(this.movie.view);
 
   this.randomizeType();
   this.randomizeDemands();
@@ -28,26 +30,14 @@ var Alien = function( direction, rangeX ) {
 }
 
 Alien.prototype.setType = function(type) {
-  var id = Config.aliens[type-1];
+  var config = Config.aliens[type-1];
   this.type = type;
-  this.image.addChild(this.movie.view);
+  this.speed = config.speed;
+
   this.movie.view.visible = true;
-  this.movie.play(id+'_walking');
+  this.movie.play(config.id+'_walking');
 
-  var size = 24;
-
-  switch (type) {
-    case 1:
-      size = 24;
-      break;
-    case 2:
-      size = 32;
-      break;
-    case 3:
-      size = 42;
-      break;
-  }
-
+  var size = config.size;
   this.movie.view.position.x = -size/2;
   this.image.position.y = -size + 16;
   this.image.scale.x = -this.direction;
@@ -68,9 +58,10 @@ Alien.prototype.randomizeType = function() {
 }
 
 Alien.prototype.randomizeDemands = function() {
+  var config = Config.aliens[this.type-1];
   var type = Random.range(1, 3, true);
   var demands = [];
-  var i = this.type;
+  var i = config.demands;
   while (i--) {
     var index = Random.range(0, 2, true);
     var type = Config.recipes[index];
@@ -81,9 +72,7 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  var speed = 0.75;
-  if (this.type == 3) speed = 0.2;
-  this.view.position.x += this.direction*speed;
+  this.view.position.x += this.direction*this.speed*Config.overallAlienSpeed;
   this.movie.update();
 }
 
