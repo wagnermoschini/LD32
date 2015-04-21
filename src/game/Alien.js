@@ -20,7 +20,7 @@ var Alien = function( direction, rangeX ) {
   this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien2_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
-  this.movie.addScene('alien3_eating', 0.1, Movie.ONCE, 'alien3_walking');
+  this.movie.addScene('alien3_eating', 0.2, Movie.ONCE, 'alien3_walking');
 
   this.view.addChild(this.image);
   this.image.addChild(this.movie.view);
