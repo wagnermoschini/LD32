@@ -135,7 +135,7 @@ Game.prototype.update = function() {
         var alien =  this.aliens[j];
         var demand = projectile.recipe.id;
         var distance = Math2.distance( projectile.view.position.x, projectile.view.position.y, alien.view.position.x, alien.view.position.y);
-        if (distance < 10 && alien.hasDemand(demand)) {
+        if (distance < 10 && alien.hasDemand(demand) && alien.state == Alien.WALKING) {
           hasCollision = true;
           alien.removeDemand(demand);
           alien.eat(projectile);

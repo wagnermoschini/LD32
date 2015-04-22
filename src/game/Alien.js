@@ -123,6 +123,7 @@ Alien.prototype.onEat = function() {
 
 Alien.prototype.onEatComplete = function() {
   this.state = Alien.WALKING;
+  this.movie.play(this.id + '_walking');
   if (this.demands.length == 0) this.die();
 }
 
