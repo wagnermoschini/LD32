@@ -175,7 +175,7 @@ Game.prototype.finish = function() {
   this.grandma.die();
   this.time.addCallback(this, function(){
     if (this.onFinish) this.onFinish();
-  }, 2);
+  }, 3);
 }
 
 module.exports = Game;

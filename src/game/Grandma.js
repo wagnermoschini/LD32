@@ -9,15 +9,20 @@ var Grandma = function() {
 	this.movie.view.position.y = -16;
 	this.view.addChild(this.movie.view);
 
-	this.movie.addScene('idle', 0.2, Movie.LOOP);
-	this.movie.addScene('charging', 0.2, Movie.LOOP);
-	this.movie.addScene('shoot', 0.1, Movie.ONCE, 'idle');
-	this.movie.addScene('dead', 0.1, Movie.LOOP);
-	this.movie.play('idle');
+	this.movie.addScene('grandma_idle', 0.2, Movie.LOOP);
+	this.movie.addScene('grandma_charging', 0.2, Movie.LOOP);
+	this.movie.addScene('grandma_shoot', 0.1, Movie.ONCE, 'grandma_idle');
+	this.movie.addScene('grandma_dead', 0.1, Movie.LOOP);
+	this.movie.addScene('grandma_ghost', 0.1, Movie.LOOP);
+	this.movie.play('grandma_idle');
 	this.dead = false;
 }
 
 Grandma.prototype.update = function(direction, charging, shoot){
+	if (this.dead) {
+		this.view.position.y -= 1;
+	}
+
 
 	if (!this.dead) {
 		if(direction === 'left'){
@@ -27,14 +32,14 @@ Grandma.prototype.update = function(direction, charging, shoot){
 		}
 
 		if (charging) {
-			this.movie.play('charging');
+			this.movie.play('grandma_charging');
 		}
 
-		if (!charging && this.movie.currentSceneId == 'charging') {
+		if (!charging && this.movie.currentSceneId == 'grandma_charging') {
 			if (shoot) {
-				this.movie.play('shoot');
+				this.movie.play('grandma_shoot');
 			} else {
-				this.movie.play('idle');
+				this.movie.play('grandma_idle');
 			}
 
 		}
@@ -45,7 +50,7 @@ Grandma.prototype.update = function(direction, charging, shoot){
 
 Grandma.prototype.die = function() {
 	this.dead = true;
-	this.movie.play('dead');
+	this.movie.play('grandma_ghost');
 }
 
 module.exports = Grandma;
