@@ -25,7 +25,7 @@ var Config = {
 	demandMaxLength: 3,
 	layout:{
 		screenSize: {w:700, h:400},
-		worldSize: {w:700, h:400},
+		worldSize: {w:400, h:300},
 		scale:2
 	}
 }

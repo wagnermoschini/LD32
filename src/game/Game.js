@@ -12,11 +12,8 @@ var Math2 = require('../utils/Math2');
 var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
 
-  //range defines the aliens summon origin
-  this.range = Config.layout.worldSize.w/4;
-
+  this.range = Config.layout.worldSize.w/2;
   this.scenario = PIXI.Sprite.fromFrame('scenario.png');
-  // this.alien =  new Alien('left',this.range);
   this.aliens = [];
   this.projectiles = [];
   this.grandma = new Grandma();
@@ -34,7 +31,6 @@ var Game = function() {
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
-
   this.summonTime = 240;
   this.frame = 0;
   this.grandma.view.position.y = this.ground;
@@ -49,17 +45,20 @@ var Game = function() {
 
 Game.prototype.summonAlien = function(){
   var direction = Math.random() < .5 ? 1 : -1;
-  var alien = new Alien(direction, this.range, 1, 0);
-
-  alien.view.position.y = this.ground;
+  var position = {x:this.range*-direction, y:this.ground};
+  var alien = new Alien();
+  alien.spawn(position, direction);
+  this.view.addChild(alien.view);
   this.aliens.push(alien);
-  this.view.addChild( this.aliens[this.aliens.length - 1].view );
 }
 
-Game.prototype.removeAlien = function(alienIndex) {
-  var alien = this.aliens[alienIndex];
-  alien.dispose();
-  this.aliens.splice(alienIndex, 1);
+Game.prototype.removeAlien = function(alien, dispose) {
+  var index = this.aliens.indexOf(alien);
+  this.aliens.splice(index, 1);
+  if (dispose) {
+    alien.dispose();
+    alien = null;
+  }
 }
 
 Game.prototype.shoot = function(direction, power) {
@@ -67,14 +66,18 @@ Game.prototype.shoot = function(direction, power) {
   var recipe = this.getRecipe(power);
 
   var projectile = new Projectile();
+  projectile.spawn(this.grandma.view.position, recipe, direction);
   this.projectiles.push(projectile);
   this.view.addChild(projectile.view);
-
-  projectile.spawn(this.grandma.view.position, recipe, direction);
 }
 
-Game.prototype.removeProjectile = function(projectileIndex) {
-  this.projectiles.splice(projectileIndex, 1);
+Game.prototype.removeProjectile = function(projectile, dispose) {
+  var index = this.projectiles.indexOf(projectile);
+  this.projectiles.splice(index, 1);
+  if (dispose) {
+    projectile.dispose();
+    projectile = null;
+  }
 }
 
 Game.prototype.getRecipe = function(power){
@@ -87,16 +90,22 @@ Game.prototype.getRecipe = function(power){
 // UPDATE
 Game.prototype.update = function() {
   this.time.update();
-  this.frame += 1;
-
 
   if(this.frame % this.summonTime === 0 && this.running) {
     this.summonAlien();
   }
 
+  this.frame += 1;
+
   if(this.aliens.length > 0){
-    for(var i = 0, len = this.aliens.length; i < len; i++){
-      this.aliens[i].update();
+    var i = this.aliens.length;
+    while (i--) {
+      var alien = this.aliens[i];
+      if (alien.state == Alien.DEAD) {
+        this.removeAlien(alien, true);
+      } else {
+        alien.update();
+      }
     }
   }
 
@@ -132,23 +141,15 @@ Game.prototype.update = function() {
   if(this.projectiles.length > 0 && this.aliens.length > 0){
     for(var i = this.projectiles.length-1; i >= 0; i--){
       var projectile = this.projectiles[i];
-      if (projectile.eaten) continue;
       for(var j = this.aliens.length-1; j >= 0; j--){
         var alien =  this.aliens[j];
         var demand = projectile.type;
         var distance = Math2.distance( projectile.view.position.x, projectile.view.position.y, alien.view.position.x, alien.view.position.y);
         if (distance < 10 && alien.hasDemand(demand)) {
           hasCollision = true;
-          var isDead = alien.removeDemand(demand);
-          this.removeProjectile(i);
-
-          if (isDead) {
-            alien.die();
-            this.removeAlien(j);
-            projectile.dispose();
-          } else {
-            alien.eat(projectile);
-          }
+          alien.removeDemand(demand);
+          alien.eat(projectile);
+          this.removeProjectile(projectile);
         }
         if (hasCollision) break;
       }
@@ -161,11 +162,14 @@ Game.prototype.update = function() {
 
   // Colision GrandMa
   if( this.aliens.length > 0 && this.running){
-    var aliensLength = this.aliens.length;
-    while(aliensLength--){
-      var distance = Math2.distance( this.grandma.view.position.x, this.grandma.view.position.y, this.aliens[aliensLength].view.position.x, this.aliens[aliensLength].view.position.y);
+    var i = this.aliens.length;
+    while(i--){
+      var alien = this.aliens[i];
+      if (alien.demands.length == 0) continue;
+      var grandmaPos = this.grandma.view.position;
+      var alienPos = alien.view.position;
+      var distance = Math2.distance(grandmaPos.x, grandmaPos.y, alienPos.x, alienPos.y);
       if(distance < 10){
-        this.removeAlien(aliensLength);
         this.onGameOver = true;
         this.finish();
       }
