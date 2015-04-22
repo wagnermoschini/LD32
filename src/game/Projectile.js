@@ -6,24 +6,24 @@ var Projectile = function() {
   this.image = PIXI.Sprite.fromFrame('cupcake.png');
   this.image.anchor.x = 0.5;
   this.image.anchor.y = 0.5;
-  this.type = '';
   this.frames = [];
   this.velocity = 0;
   this.eaten = false;
+  this.recipe = null;
 
   this.view.addChild(this.image);
 
   var i = Config.recipes.length;
   while (i--) {
-    var frameId = Config.recipes[i] + '.png';
+    var frameId = Config.recipes[i].id + '.png';
     var frame = PIXI.Texture.fromFrame(frameId);
     this.frames[i] = frame;
   }
 }
 
-Projectile.prototype.spawn = function(position, type, velocity) {
-  this.type = type;
-  var index = Config.recipes.indexOf(type);
+Projectile.prototype.spawn = function(recipe, position, velocity) {
+  var index = Config.recipes.indexOf(recipe);
+  this.recipe = recipe;
   this.image.setTexture(this.frames[index]);
   this.view.position.x = position.x;
   this.view.position.y = position.y;
@@ -36,6 +36,7 @@ Projectile.prototype.update = function() {
 
 Projectile.prototype.dispose = function() {
   if (this.view.parent) this.view.parent.removeChild(this.view);
+  this.recipe = null;
   this.view = null;
 }
 

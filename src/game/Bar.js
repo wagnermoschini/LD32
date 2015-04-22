@@ -27,28 +27,17 @@ var Bar = function() {
   this.icon.setType('');
   this.icon.view.scale.x = 2;
   this.icon.view.scale.y = 2;
-  this.state = -1;
-  this.stateLength = 1/Config.recipes.length;
   this.view.addChild(this.icon.view);
 
   this.bar.scale.x = 0;
-
-  // Coeficient
-  this.coef = 0.005;
 }
 
 Bar.prototype.update = function(val){
   var ratio = Math2.clamp(val, 0, 1);
-  var state = this.getState(ratio);
-  // console.log(state);
-  var alpha = Math.ceil(ratio*1000)%Math.ceil(this.stateLength*1000)/this.stateLength/1000;
+  var recipe = Config.getRecipeByPower(ratio);
+
   this.bar.scale.x = ratio;
-
-  this.icon.setType(Config.recipes[state]);
-
-  // var pos = -10 - (10*alpha);
-  // this.icon.view.position.y = pos;
-  // this.icon.view.alpha = alpha*0.5 + 0.5;
+  this.icon.setType(recipe ? recipe.id : '');
 
   this.icon.view.position.x = this.bar.position.x + 74*ratio;
   this.icon.view.position.y = -1;

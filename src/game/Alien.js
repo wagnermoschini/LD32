@@ -82,7 +82,7 @@ Alien.prototype.randomizeDemands = function() {
   var i = this.config.demands;
   while (i--) {
     var index = Random.range(0, 2, true);
-    var type = Config.recipes[index];
+    var type = Config.recipes[index].id;
     demands.push(type);
   }
   this.demands = demands;

@@ -1,7 +1,20 @@
 var Config = {
 	debug: true,
 	overallAlienSpeed:0.75,
-	recipes: ['donut', 'cupcake', 'cake'],
+	recipes: [
+		{
+			id: 'donut',
+			powerRatio: 0.1
+		},
+		{
+			id: 'cupcake',
+			powerRatio: 0.5
+		},
+		{
+			id: 'cake',
+			powerRatio: 0.8
+		}
+	],
 	aliens:[
 		{
 			id:'alien1',
@@ -27,6 +40,15 @@ var Config = {
 		screenSize: {w:700, h:400},
 		worldSize: {w:400, h:300},
 		scale:2
+	},
+
+	getRecipeByPower: function(power){
+	  var i = this.recipes.length;
+	  while (i--) {
+	    var recipe = this.recipes[i];
+	    if (power >= recipe.powerRatio) return recipe;
+	  }
+	  return null;
 	}
 }
 

@@ -61,12 +61,10 @@ Game.prototype.removeAlien = function(alien, dispose) {
   }
 }
 
-Game.prototype.shoot = function(direction, power) {
-  var direction = (direction == 'left')?-2:2;
-  var recipe = this.getRecipe(power);
-
+Game.prototype.shoot = function(direction, recipe) {
+  var velocity = (direction == 'left')?-2:2;
   var projectile = new Projectile();
-  projectile.spawn(this.grandma.view.position, recipe, direction);
+  projectile.spawn(recipe, this.grandma.view.position, velocity);
   this.projectiles.push(projectile);
   this.view.addChild(projectile.view);
 }
@@ -79,13 +77,6 @@ Game.prototype.removeProjectile = function(projectile, dispose) {
     projectile = null;
   }
 }
-
-Game.prototype.getRecipe = function(power){
-  if(power >= 0.8) return Config.recipes[2];
-  if(power >= 0.5) return Config.recipes[1];
-  if(power >= 0.2) return Config.recipes[0];
-}
-
 
 // UPDATE
 Game.prototype.update = function() {
@@ -116,10 +107,9 @@ Game.prototype.update = function() {
 
   var shoot = false;
   if(this.touchArea.up && this.running){
-
-    if(this.power >= 0.2) {
-      this.shoot(this.touchArea.getSide(), this.power);
-      shoot = true;
+    var recipe = Config.getRecipeByPower(this.power);
+    if (recipe) {
+      this.shoot(this.touchArea.getSide(), recipe);
     }
 
     this.power = 0;
@@ -143,7 +133,7 @@ Game.prototype.update = function() {
       var projectile = this.projectiles[i];
       for(var j = this.aliens.length-1; j >= 0; j--){
         var alien =  this.aliens[j];
-        var demand = projectile.type;
+        var demand = projectile.recipe.id;
         var distance = Math2.distance( projectile.view.position.x, projectile.view.position.y, alien.view.position.x, alien.view.position.y);
         if (distance < 10 && alien.hasDemand(demand)) {
           hasCollision = true;
