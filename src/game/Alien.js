@@ -39,7 +39,6 @@ var Alien = function( direction, rangeX ) {
 }
 
 Alien.prototype.setType = function(type) {
-  type = 2;
   var config = Config.aliens[type-1];
   this.type = type;
   this.id = config.id;
