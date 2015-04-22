@@ -12,6 +12,7 @@ var Alien = function( direction, rangeX ) {
   this.direction = direction;
   this.range = rangeX;
   this.type = 0;
+  this.id = '';
   this.demands = [];
   this.balloon = new Balloon();
   this.speed = 0;
@@ -21,9 +22,12 @@ var Alien = function( direction, rangeX ) {
   this.movie.addScene('alien1_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien2_walking', 0.1, Movie.LOOP);
   this.movie.addScene('alien3_walking', 0.1, Movie.LOOP);
-  this.movie.addScene('alien3_eating', 0.2, Movie.ONCE, 'alien3_walking', [{frame:1, action:function() {
+  this.movie.addScene('alien2_eating', 0.1, Movie.ONCE, 'alien2_walking', [{frame:1, action:_onEat}]);
+  this.movie.addScene('alien3_eating', 0.1, Movie.ONCE, 'alien3_walking', [{frame:1, action:_onEat}]);
+
+  function _onEat() {
     self.onEat();
-  }}]);
+  }
 
   this.view.addChild(this.image);
   this.image.addChild(this.movie.view);
@@ -35,8 +39,10 @@ var Alien = function( direction, rangeX ) {
 }
 
 Alien.prototype.setType = function(type) {
+  type = 2;
   var config = Config.aliens[type-1];
   this.type = type;
+  this.id = config.id;
   this.speed = config.speed;
 
   this.movie.view.visible = true;
@@ -77,7 +83,7 @@ Alien.prototype.randomizeDemands = function() {
 }
 
 Alien.prototype.update = function(){
-  if (this.movie.currentSceneId != 'alien3_eating') {
+  if (this.movie.currentSceneId != (this.id + '_eating')) {
     this.view.position.x += this.direction*this.speed*Config.overallAlienSpeed;
   }
   this.movie.update();
@@ -98,8 +104,8 @@ Alien.prototype.removeDemand = function(demand) {
 Alien.prototype.eat = function(something) {
   this.thingToEat = something;
   this.thingToEat.eaten = true;
-  if (this.type == 3) {
-    this.movie.play('alien3_eating');
+  if (this.type != 1) {
+    this.movie.play(this.id + '_eating');
   } else {
     this.onEat();
   }
