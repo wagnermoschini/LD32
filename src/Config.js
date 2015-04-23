@@ -12,7 +12,7 @@ var Config = {
 		},
 		{
 			id: 'cake',
-			powerRatio: 0.8
+			powerRatio: 0.9
 		}
 	],
 	aliens:[

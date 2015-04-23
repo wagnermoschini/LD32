@@ -6,7 +6,7 @@ var Math2 = require('../utils/Math2');
 
 var Bar = function() {
   this.view = new PIXI.DisplayObjectContainer();
-  this.view.position.y = -Config.layout.screenSize.h/Config.layout.scale/2 + 44;
+  this.view.position.y = Config.layout.screenSize.h/Config.layout.scale/2 - 20;
 
   this.base = PIXI.Sprite.fromFrame('bar_base.png');
   this.base.position.x = -40;
@@ -23,39 +23,11 @@ var Bar = function() {
   this.cover.position.y = -7;
   this.view.addChild(this.cover);
 
-  this.icon = new Icon();
-  this.icon.setType('');
-  this.icon.view.scale.x = 2;
-  this.icon.view.scale.y = 2;
-  this.view.addChild(this.icon.view);
-
   this.bar.scale.x = 0;
 }
 
-Bar.prototype.update = function(val){
-  var ratio = Math2.clamp(val, 0, 1);
-  var recipe = Config.getRecipeByPower(ratio);
-
-  this.bar.scale.x = ratio;
-  this.icon.setType(recipe ? recipe.id : '');
-
-  this.icon.view.position.x = this.bar.position.x + 74*ratio;
-  this.icon.view.position.y = -1;
-}
-
-Bar.prototype.getState = function(ratio){
-
-  if(ratio >= .8){
-    return 2;
-  }
-  if(ratio >= .4){
-    return 1;
-  }
-  if(ratio >= .1){
-    return 0;
-  }
-  return -1;
-
+Bar.prototype.update = function(power){
+  this.bar.scale.x = power;
 }
 
 module.exports = Bar;

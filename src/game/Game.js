@@ -5,6 +5,7 @@ var Projectile = require('./Projectile');
 var Alien = require('./Alien');
 var Time = require('./Time');
 var Bar = require('./Bar');
+var ChargeDisplay = require('./ChargeDisplay');
 var TouchArea = require('./TouchArea');
 var Colider = require('./Colider');
 var Math2 = require('../utils/Math2');
@@ -19,11 +20,13 @@ var Game = function() {
   this.grandma = new Grandma();
   this.time = new Time();
   this.bar = new Bar();
+  this.chargeDisplay = new ChargeDisplay();
   this.touchArea = new TouchArea();
 
   this.ground = 50;
 
   this.view.addChild(this.scenario);
+  this.view.addChild(this.chargeDisplay.view);
   this.view.addChild(this.grandma.view);
   this.view.addChild(this.bar.view);
   this.view.addChild(this.touchArea.view);
@@ -41,6 +44,7 @@ var Game = function() {
   this.onGameOver = false;
   this.running = true;
   this.onFinish = null;
+
 };
 
 Game.prototype.summonAlien = function(){
@@ -103,8 +107,11 @@ Game.prototype.update = function() {
 
   if(this.touchArea.down && this.running){
     this.power += this.powerCoef;
+    if (this.power > 1) this.power = 1;
     this.bar.update(this.power);
   }
+
+  this.chargeDisplay.update(this.power);
 
   var shoot = false;
   if(this.touchArea.up && this.running){
