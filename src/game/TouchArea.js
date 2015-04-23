@@ -31,15 +31,15 @@ var TouchArea = function() {
   this.view.interactive = true;
 
   // Private Methods
-  // this.view.mousedown = function(event){
-  //   this.down = true;
-  //   this.up = false;
-  // }.bind(this);
-  //
-  // this.view.mouseup = function(event){
-  //   this.down = false;
-  //   this.up = true;
-  // }.bind(this);
+  this.view.mousedown = function(event){
+    this.down = true;
+    this.up = false;
+  }.bind(this);
+
+  this.view.mouseup = function(event){
+    this.down = false;
+    this.up = true;
+  }.bind(this);
 
   this.view.mousemove = function(event){
     this.setMousePosition(event.originalEvent.layerX, event.originalEvent.layerY);
@@ -47,8 +47,6 @@ var TouchArea = function() {
 
   this.view.touchmove = function(event){
     this.setMousePosition(event.global.x, event.global.y);
-
-    console.log('touch move', event);
   }.bind(this);
 
   this.view.touchstart = function(event){
