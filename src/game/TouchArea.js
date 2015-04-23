@@ -46,15 +46,18 @@ var TouchArea = function() {
   }.bind(this);
 
   this.view.touchmove = function(event){
-    this.setMousePosition(event.originalEvent.layerX, event.originalEvent.layerY);
+    this.setMousePosition(event.global.x, event.global.y);
   }.bind(this);
 
   this.view.touchstart = function(event){
+    this.setMousePosition(event.global.x, event.global.y);
     this.down = true;
     this.up = false;
+
   }.bind(this);
 
   this.view.touchend = function(event){
+    this.setMousePosition(event.global.x, event.global.y);
     this.down = false;
     this.up = true;
   }.bind(this);
