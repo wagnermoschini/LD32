@@ -48,6 +48,10 @@ Grandma.prototype.update = function(direction, charging, shoot){
 	this.movie.update();
 }
 
+Grandma.prototype.shoot = function() {
+	this.movie.play('grandma_shoot');
+}
+
 Grandma.prototype.beEaten = function() {
 	this.movie.play('grandma_ghost');
 	this.die();

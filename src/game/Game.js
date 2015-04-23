@@ -72,6 +72,7 @@ Game.prototype.shoot = function(direction, recipe) {
   projectile.spawn(recipe, this.grandma.view.position, velocity);
   this.projectiles.push(projectile);
   this.view.addChild(projectile.view);
+  this.grandma.shoot();
 }
 
 Game.prototype.removeProjectile = function(projectile, dispose) {
