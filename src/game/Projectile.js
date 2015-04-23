@@ -34,6 +34,12 @@ Projectile.prototype.update = function() {
   this.view.position.x += this.velocity;
 }
 
+Projectile.prototype.beEaten = function() {
+  if (this.view.parent) this.view.parent.removeChild(this.view);
+  this.recipe = null;
+  this.view = null;
+}
+
 Projectile.prototype.dispose = function() {
   if (this.view.parent) this.view.parent.removeChild(this.view);
   this.recipe = null;

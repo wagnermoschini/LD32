@@ -33,7 +33,7 @@ var Game = function() {
 
   this.summonTime = 240;
   this.frame = 0;
-  this.grandma.view.position.y = this.ground;
+  this.grandma.view.position.y = this.ground + 2;
 
   this.power = 0;
   this.powerCoef = 0.01;
@@ -50,6 +50,7 @@ Game.prototype.summonAlien = function(){
   alien.spawn(position, direction);
   this.view.addChild(alien.view);
   this.aliens.push(alien);
+  this.view.addChild(this.grandma.view);
 }
 
 Game.prototype.removeAlien = function(alien, dispose) {
@@ -160,6 +161,7 @@ Game.prototype.update = function() {
       var alienPos = alien.view.position;
       var distance = Math2.distance(grandmaPos.x, grandmaPos.y, alienPos.x, alienPos.y);
       if(distance < 10){
+        alien.eat(this.grandma);
         this.onGameOver = true;
         this.finish();
       }
@@ -172,7 +174,7 @@ Game.prototype.update = function() {
 
 Game.prototype.finish = function() {
   this.running = false;
-  this.grandma.die();
+  // this.grandma.die();
   this.time.addCallback(this, function(){
     if (this.onFinish) this.onFinish();
   }, 3);

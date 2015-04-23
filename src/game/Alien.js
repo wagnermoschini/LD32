@@ -117,7 +117,7 @@ Alien.prototype.eat = function(something) {
 
 Alien.prototype.onEat = function() {
   if (!this.thingToEat) return;
-  this.thingToEat.dispose();
+  this.thingToEat.beEaten();
   this.thingToEat = null;
 }
 
