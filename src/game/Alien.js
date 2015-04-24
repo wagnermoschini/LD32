@@ -17,15 +17,18 @@ var Alien = function() {
   this.thingToEat = null;
   this.demands = [];
   this.balloon = new Balloon();
+  this.deadCount = 0;
+
 
   this.movie = new Movie();
-  var frameRate = 0.1;
+  var frameRate = 0.125;
   this.movie.addScene('alien1_walking', frameRate, Movie.LOOP);
   this.movie.addScene('alien2_walking', frameRate, Movie.LOOP);
   this.movie.addScene('alien3_walking', frameRate, Movie.LOOP);
   this.movie.addScene('alien1_eating', frameRate, Movie.ONCE, 'alien1_walking', [{frame:1, action:_onEat}, {frame:3, action:_onEatComplete}]);
   this.movie.addScene('alien2_eating', frameRate, Movie.ONCE, 'alien2_walking', [{frame:1, action:_onEat}, {frame:3, action:_onEatComplete}]);
   this.movie.addScene('alien3_eating', frameRate, Movie.ONCE, 'alien3_walking', [{frame:1, action:_onEat}, {frame:3, action:_onEatComplete}]);
+  this.movie.addScene('alien1_exploding', frameRate, Movie.ONCE, null, [{frame:5, action:_onExplodeComplete}]);
 
   function _onEat() {
     self.onEat();
@@ -33,6 +36,10 @@ var Alien = function() {
 
   function _onEatComplete() {
     self.onEatComplete();
+  }
+
+  function _onExplodeComplete() {
+    self.state = Alien.DEAD;
   }
 
   this.image.addChild(this.movie.view);
@@ -58,6 +65,7 @@ Alien.prototype.spawn = function(position, direction) {
 
 Alien.prototype.randomizeType = function() {
   var type = Random.range(1, 3, true);
+  type = 1;
   this.setType(type);
 }
 
@@ -94,6 +102,7 @@ Alien.prototype.update = function(){
     var velocity = this.direction*this.speed*Config.overallAlienSpeed;
     this.view.position.x += velocity;
   }
+  if (this.mustDie) this.state = Alien.DEAD;
   this.movie.update();
 }
 
@@ -122,14 +131,16 @@ Alien.prototype.onEat = function() {
 }
 
 Alien.prototype.onEatComplete = function() {
+  if (this.state != Alien.EATING) return;
   this.state = Alien.WALKING;
   this.movie.play(this.id + '_walking');
   if (this.demands.length == 0) this.die();
 }
 
 Alien.prototype.die = function() {
-  this.state = Alien.DEAD;
+  this.state = Alien.DYING;
   console.log('alien explodes!');
+  this.movie.play(this.id + '_exploding');
 }
 
 Alien.prototype.dispose = function() {
