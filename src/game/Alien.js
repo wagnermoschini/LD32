@@ -29,6 +29,7 @@ var Alien = function() {
   this.movie.addScene('alien2_eating', frameRate, Movie.ONCE, 'alien2_walking', [{frame:1, action:_onEat}, {frame:3, action:_onEatComplete}]);
   this.movie.addScene('alien3_eating', frameRate, Movie.ONCE, 'alien3_walking', [{frame:1, action:_onEat}, {frame:3, action:_onEatComplete}]);
   this.movie.addScene('alien1_exploding', frameRate, Movie.ONCE, null, [{frame:5, action:_onExplodeComplete}]);
+  this.movie.addScene('alien2_exploding', frameRate, Movie.ONCE, null, [{frame:5, action:_onExplodeComplete}]);
 
   function _onEat() {
     self.onEat();
@@ -65,7 +66,7 @@ Alien.prototype.spawn = function(position, direction) {
 
 Alien.prototype.randomizeType = function() {
   var type = Random.range(1, 3, true);
-  type = 1;
+  // type = 1;
   this.setType(type);
 }
 
@@ -139,8 +140,11 @@ Alien.prototype.onEatComplete = function() {
 
 Alien.prototype.die = function() {
   this.state = Alien.DYING;
-  console.log('alien explodes!');
-  this.movie.play(this.id + '_exploding');
+  if (this.type != 3) {
+    this.movie.play(this.id + '_exploding');
+  } else {
+    this.state = Alien.DEAD;
+  }
 }
 
 Alien.prototype.dispose = function() {
