@@ -9,11 +9,11 @@ var Grandma = function() {
 	this.movie.view.position.y = -16;
 	this.view.addChild(this.movie.view);
 
-	this.movie.addScene('grandma_idle', 0.2, Movie.LOOP);
+	this.movie.addScene('grandma_idle', 0.125, Movie.LOOP);
 	this.movie.addScene('grandma_charging', 0.2, Movie.LOOP);
-	this.movie.addScene('grandma_shoot', 0.1, Movie.ONCE, 'grandma_idle');
-	this.movie.addScene('grandma_dead', 0.1, Movie.LOOP);
-	this.movie.addScene('grandma_ghost', 0.1, Movie.LOOP);
+	this.movie.addScene('grandma_shoot', 0.125, Movie.ONCE, 'grandma_idle');
+	this.movie.addScene('grandma_dead', 0.125, Movie.LOOP);
+	this.movie.addScene('grandma_ghost', 0.125, Movie.LOOP);
 	this.movie.play('grandma_idle');
 	this.dead = false;
 }
