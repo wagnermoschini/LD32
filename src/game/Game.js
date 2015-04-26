@@ -62,10 +62,10 @@ Game.prototype.setLevel = function(){
   if(this.level.wave && this.level.wave.score === 'infinity') return;
 
   // Change Level
-  if(this.level.index === -1 || (this.level.wave && this.level.waveScore >= this.level.wave.score)){
+  if(this.level.index === -1 || (this.level.wave && this.level.score >= this.level.wave.score)){
     this.level.index = this.level.index+1;
     this.level.wave = Waves[this.level.index];
-    this.level.waveScore = 0
+    this.level.score = 0
     console.log('Level Changed');
     console.log('Wave '+ this.level.index);
   }
@@ -119,7 +119,7 @@ Game.prototype.update = function() {
 
   this.time.update();
 
-  if(this.frame % this.summonTime === 0 && this.running) {
+  if(this.frame % this.level.wave.summonTime === 0 && this.running) {
     this.summonAlien();
   }
 
@@ -130,7 +130,10 @@ Game.prototype.update = function() {
     while (i--) {
       var alien = this.aliens[i];
       if (alien.state == Alien.DEAD) {
+        this.level.score += 1
         this.removeAlien(alien, true);
+        console.log('alien dead');
+        console.log('next wave at '+ this.level.wave.score, 'actual score is'+ this.level.score);
       } else {
         alien.update();
       }

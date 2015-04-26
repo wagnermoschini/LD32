@@ -7,12 +7,14 @@
     1 = alien 1, alien 2
     2 = alien 1, alien 2, alien 3
 
-  demandType:
+  demandType: an array containts a demand per alien type [alien1, alien2, alien3]
     0 = donuts
-    1 = donuts and cupcake
-    2 = donuts, cupcake and cake
+    1 = donuts, cupcake
+    2 = donuts, cupcake, cake
 
   deaths: a number of deaths required for next wave
+
+  summonTime: define a fps rate of summon Aliens
 
 
 
