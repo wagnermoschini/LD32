@@ -18,6 +18,7 @@ var Alien = function() {
   this.demands = [];
   this.balloon = new Balloon();
   this.deadCount = 0;
+  this.wave = null;
 
 
   this.movie = new Movie();
@@ -56,24 +57,30 @@ Alien.EATING = 2;
 Alien.DYING = 3;
 Alien.DEAD = 4;
 
-Alien.prototype.spawn = function(position, direction) {
+Alien.prototype.spawn = function(position, direction, wave) {
+
+  this.wave = wave;
   this.direction = direction;
-  this.randomizeType();
-  this.randomizeDemands();
+
+  this.setType( this.randomizeType(this.wave.aliens) );
+
+  this.demands = this.randomizeDemands( this.wave.demandType[this.type] );
+  this.balloon.updateDemands(this.demands);
+
   this.view.position.x = position.x;
   this.view.position.y = position.y;
   this.state = Alien.WALKING;
+
 }
 
-Alien.prototype.randomizeType = function() {
-  var type = Random.range(1, 3, true);
-  // type = 1;
-  this.setType(type);
+Alien.prototype.randomizeType = function(max) {
+  return Random.range(0, max, true);
 }
 
 Alien.prototype.setType = function(type) {
-  this.config = Config.aliens[type - 1];
+
   this.type = type;
+  this.config = Config.aliens[this.type];
   this.id = this.config.id;
   this.speed = this.config.speed;
 
@@ -87,16 +94,16 @@ Alien.prototype.setType = function(type) {
   this.balloon.view.y = this.image.position.y - 8;
 }
 
-Alien.prototype.randomizeDemands = function() {
+Alien.prototype.randomizeDemands = function(max) {
   var demands = [];
   var i = this.config.demands;
   while (i--) {
-    var index = Random.range(0, 2, true);
+    var index = Random.range(0, max, true);
     var type = Config.recipes[index].id;
     demands.push(type);
   }
-  this.demands = demands;
-  this.balloon.updateDemands(this.demands);
+
+  return demands;
 }
 
 Alien.prototype.update = function(){

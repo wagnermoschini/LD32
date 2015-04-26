@@ -9,6 +9,7 @@ var ChargeDisplay = require('./ChargeDisplay');
 var TouchArea = require('./TouchArea');
 var Colider = require('./Colider');
 var Math2 = require('../utils/Math2');
+var Waves = require('./Waves');
 
 var Game = function() {
   this.view = new PIXI.DisplayObjectContainer();
@@ -34,7 +35,6 @@ var Game = function() {
   this.scenario.anchor.x = 0.5;
   this.scenario.anchor.y = 0.5;
 
-  this.summonTime = 240;
   this.frame = 0;
   this.grandma.view.position.y = this.ground + 2;
 
@@ -45,13 +45,41 @@ var Game = function() {
   this.running = true;
   this.onFinish = null;
 
+
+
+  this.level = {
+    index: -1,
+    wave : null,
+    waveScore : null
+  };
+
+  this.summonTime = 240;
+
 };
 
+Game.prototype.setLevel = function(){
+  // Last Level don't change
+  if(this.level.wave && this.level.wave.score === 'infinity') return;
+
+  // Change Level
+  if(this.level.index === -1 || (this.level.wave && this.level.waveScore >= this.level.wave.score)){
+    this.level.index = this.level.index+1;
+    this.level.wave = Waves[this.level.index];
+    this.level.waveScore = 0
+    console.log('Level Changed');
+    console.log('Wave '+ this.level.index);
+  }
+
+
+}
+
 Game.prototype.summonAlien = function(){
+
   var direction = Math.random() < .5 ? 1 : -1;
   var position = {x:this.range*-direction, y:this.ground};
   var alien = new Alien();
-  alien.spawn(position, direction);
+
+  alien.spawn(position, direction, this.level.wave);
   this.view.addChild(alien.view);
   this.aliens.push(alien);
   this.view.addChild(this.grandma.view);
@@ -86,6 +114,9 @@ Game.prototype.removeProjectile = function(projectile, dispose) {
 
 // UPDATE
 Game.prototype.update = function() {
+
+  this.setLevel();
+
   this.time.update();
 
   if(this.frame % this.summonTime === 0 && this.running) {
