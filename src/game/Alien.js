@@ -82,7 +82,7 @@ Alien.prototype.setType = function(type) {
   this.type = type;
   this.config = Config.aliens[this.type];
   this.id = this.config.id;
-  this.speed = this.config.speed;
+  this.speed = this.config.speed * this.wave.speedRatio;
 
   this.movie.view.visible = true;
   this.movie.play(this.id + '_walking');

@@ -16,6 +16,8 @@
 
   summonTime: define a fps rate of summon Aliens
 
+  speedRatio: a multiplier for alien native speed
+
 
 
 
@@ -27,44 +29,51 @@ var Waves = [
   {
     aliens: 0,
     demandType: [0],
-    score: 2,
-    summonTime: 240
+    score: 1,
+    summonTime: 200,
+    speedRatio: 0.8
   },
   {
     aliens: 0,
     demandType: [1],
     score: 2,
-    summonTime: 240
+    summonTime: 240,
+    speedRatio: 0.8
   },
   {
     aliens: 1,
     demandType: [1,0],
-    score: 4,
-    summonTime: 240
+    score: 3,
+    summonTime: 240,
+    speedRatio: 0.9
   },
   {
     aliens: 1,
     demandType: [2,1],
-    score: 6,
-    summonTime: 240
+    score: 4,
+    summonTime: 240,
+    speedRatio: 0.9
   },
   {
     aliens: 2,
     demandType: [2,2,0],
     score: 6,
-    summonTime: 240
+    summonTime: 240,
+    speedRatio: 1
   },
   {
     aliens: 2,
     demandType: [2,2,1],
     score: 6,
-    summonTime: 240
+    summonTime: 240,
+    speedRatio: 1.2
   },
   {
     aliens: 2,
     demandType: [2,2,2],
     score: 'infinity',
-    summonTime: 240
+    summonTime: 240,
+    speedRatio: 1.4
   }
 ];
 

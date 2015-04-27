@@ -132,8 +132,6 @@ Game.prototype.update = function() {
       if (alien.state == Alien.DEAD) {
         this.level.score += 1
         this.removeAlien(alien, true);
-        console.log('alien dead');
-        console.log('next wave at '+ this.level.wave.score, 'actual score is'+ this.level.score);
       } else {
         alien.update();
       }
