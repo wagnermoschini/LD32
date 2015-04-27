@@ -44,7 +44,8 @@ var Game = function() {
   this.onGameOver = false;
   this.running = true;
   this.onFinish = null;
-
+  this.score = 0;
+  this.combo = 1; // Future implementation
 
 
   this.level = {
@@ -53,7 +54,6 @@ var Game = function() {
     waveScore : null
   };
 
-  this.summonTime = 240;
 
 };
 
@@ -131,7 +131,10 @@ Game.prototype.update = function() {
       var alien = this.aliens[i];
       if (alien.state == Alien.DEAD) {
         this.level.score += 1
+        this.score += alien.score * this.combo;
         this.removeAlien(alien, true);
+
+        console.log('Score', this.score);
       } else {
         alien.update();
       }

@@ -35,6 +35,7 @@ var Config = {
 			demands:3
 		}
 	],
+	score: [1,2,3],
 	demandMaxLength: 3,
 	layout:{
 		screenSize: {w:700, h:400},

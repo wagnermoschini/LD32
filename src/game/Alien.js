@@ -80,6 +80,7 @@ Alien.prototype.randomizeType = function(max) {
 Alien.prototype.setType = function(type) {
 
   this.type = type;
+  this.score = Config.score[this.type];
   this.config = Config.aliens[this.type];
   this.id = this.config.id;
   this.speed = this.config.speed * this.wave.speedRatio;

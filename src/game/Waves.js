@@ -30,42 +30,42 @@ var Waves = [
     aliens: 0,
     demandType: [0],
     score: 1,
-    summonTime: 200,
+    summonTime: 160,
     speedRatio: 0.8
   },
   {
     aliens: 0,
     demandType: [1],
     score: 2,
-    summonTime: 240,
+    summonTime: 160,
     speedRatio: 0.8
   },
   {
     aliens: 1,
     demandType: [1,0],
     score: 3,
-    summonTime: 240,
+    summonTime: 180,
     speedRatio: 0.9
   },
   {
     aliens: 1,
     demandType: [2,1],
     score: 4,
-    summonTime: 240,
+    summonTime: 190,
     speedRatio: 0.9
   },
   {
     aliens: 2,
     demandType: [2,2,0],
     score: 6,
-    summonTime: 240,
+    summonTime: 200,
     speedRatio: 1
   },
   {
     aliens: 2,
     demandType: [2,2,1],
     score: 6,
-    summonTime: 240,
+    summonTime: 220,
     speedRatio: 1.2
   },
   {
